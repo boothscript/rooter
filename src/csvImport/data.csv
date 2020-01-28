@@ -1,0 +1,61 @@
+boxNumber,route,name,address,postcode,contactNumber,contactName,collectionFrequency,prevCollection,nextCollection,nextCollection2,nextCollectionFormula,nextCollection3,FILTERMONTHHERE,currentYearTotal,notes
+FR081,3,The George,"Church Street, Nunney",BA11 4LW,,,6,Jul-19,,,1,1,January,,
+FR174,,Zone 5 Frome Medical Centre Tulip,"Enos Way, Frome",BA11 2PH,,,6,Jul-19,,,1,1,January,,James Eyre Tulip Fund
+FR037,6,The Red Lion,"Bath Road, Woolverton",BA2 7QS,01373 830 350,,3,Oct-19,,,1,1,January,,
+FR093,,The Kingfisher Fish & Chip Shop,"6 Badcox, Frome",BA11 3BQ,,,3,Oct-19,,,1,1,January,,
+FR187,,The Artisan,"6 Christchurch St West, Frome",BA11 1EQ,,,3,Oct-19,,,1,1,January,,Events
+FR009,1,The Bell Inn,"Rudge Road, Standerwick",BA11 2PT,01373 830 413,,2,Nov-19,,,1,1,January,,
+FR010,1,Mole Valley Farmers,"Berkeley St, Standerwick",BA11 2PN,01373 831 114,,2,Nov-19,,,1,1,January,,
+FR200,2,Budgens Supermarket,"Commerce Park, Frome",BA11 2RY,,Alex,2,Nov-19,,,1,1,January,,"3 Boxes. Will call for collection. Unit D3, Southgate"
+FR004,6,The Woolpack Inn,"2 Warminster Rd, Beckington",BA11 6SP,,,2,Nov-19,,,1,1,January,,Events
+FR078,7,Farleigh Service Station,A36,BA2 7TP,1225720239,Spencer or Pete Beckett,2,Nov-19,,,1,1,January,,
+FR045,,Post Office Portway,"2 Portway, Frome",BA11 1QP,01373 467 294,,2,Nov-19,,,1,1,January,,
+FR064,,Boots Chemist,"11 Market Place, Frome",BA11 1AB,01373 462 402,,2,Nov-19,,,1,1,January,,2 boxes
+FR113,,Millers Home Stores,"6-8 Westway, Frome",BA11 1BS,,,2,Nov-19,,,1,1,January,,2 boxes
+FR158,,Annette Gabberdey,"5 Catherine Hill, Frome",BA11 1BY,,,12,Feb-19,,,2,2,February,,
+FR190,4,Co Operative Store,"1 Fortescue St, Norton St Phillip",BA2 7PE,,,4,Oct-19,,,2,2,February,,2 Boxes
+FR164,1,White Row Farmshop,"Whiterow, Beckington",BA11 6TN,,,3,Nov-19,,,2,2,February,,4 boxes (FR165 + FR166 + FR167)
+FR165,1,White Row Garden & Gift shop,"Whiterow, Beckington",BA11 6TN,,,3,Nov-19,,,2,2,February,,
+FR166,1,White Row Café,"Whiterow, Beckington",BA11 6TN,,,3,Nov-19,,,2,2,February,,
+FR167,1,White Row Fish & Chip Shop,"Whiterow, Beckington",BA11 6TN,,,3,Nov-19,,,2,2,February,,
+FR202,2,Sydenhams Merch Builders,"14 Handlemaker Rd, Frome",BA11 4RW,,,3,Nov-19,,,2,2,February,,
+FR112,5,Cross Keys Inn,"20 High St, Blatchbridge, Rode",BA11 6NZ,,,3,Nov-19,,,2,2,February,,
+FR201,5,Post Office Rode,"32 High St, Rode",,,Graham,3,Nov-19,,,2,2,February,,
+FR077,7,The Rose & Crown /Charterhouse Coffee,"High St, Hinton Charterhouse",BA2 7SN,,,3,Nov-19,,,2,2,February,,"Box for each site, Same number"
+FR182,,Natwest,"4 Marketplace, Frome",BA11 1AE,,,6,Sep-19,,,3,3,March,,
+FR203,7,The Stag Inn,"22 High St, Hinton Charterhouse",BA2 7SW,01225 723 456,Chris,3,,,,3,3,March,,NEW
+FR008,,The Royal Oak,"2 Oakfield Road, Frome",BA11 4JE,01373 463 520,,3,,,,3,3,March,,"Was closed,now reopened. New Box?"
+FR175,,The Three Swans,"16-17 King St, Frome",BA11 1BH,,,,Apr-19,,,4,4,April,,"Events. Collected by DH shop, check with new manager"
+FR090,8,The Fox Badger,"Railway Lane, Wellow",BA2 8W9,,,6,Oct-19,,,4,4,April,,
+FR031,,Badcox News,"4 Badcox, Frome",BA11 3BQ,01373 464 492,,4,,,,4,4,April,,
+FR012,,Frome Valley Cleaners,"24 King street, Frome",BA11 1BH,01373 462 183,,6,Nov-19,,,5,5,May,,
+FR019,1,The White Hart,"Foghamshire Lane, Trudoxhill",BA11 5DP,01373 836 324,,6,,,,6,6,June,,
+FR130,,Frome Community Hospital,"Enos Way, Frome",BA11 2FH,,,6,,,,6,6,June,,
+FR147,,Frome Medical Centre (Front desk),"Enos Way, Frome",BA11 2FH,,,6,,,,6,6,June,,
+FR097,3,Nunney Catch Transport Café,Nunney Catch,BA11 4NZ,,,6,Feb-19,,,8,8,August,,
+FR109,,The Venue Frome Footbal Club,"48 Berkley Rd, Frome",BA11 2EH,,,6,Feb-19,,,8,8,August,,
+FR075,4,Fleur de Lys,"High St, Norton St Phillip",BA2 7LG,01373 834 333,,6,Mar-19,,,9,9,September,,
+FR089,8,The Parlour Shop,Wellow,BA2 8PU,,,6,Apr-19,,,10,10,October,,
+FR034,,Chung Ying Chip Shop,"1 Alexandra Road, Frome",BA11 1LU,01373 462 102,,4,Jun-19,,,10,10,October,,
+FR072,2,Sydenhams Merch Builders,"14 Handlemaker Rd, Frome",BA11 4RW,01373 451 600,,3,Jul-19,,,10,10,October,,Also has FR202. Previously called Tipadel
+FR162,3,Spar,"Market Place, Nunney",BA11 4LY,,,3,Aug-19,,,11,11,November,,New Manager
+FR003,2,Carphone Warehouse,"Wessex Fields, Frome",BA11 4DH,0343 538 1059,,12,Jan-19,,,1,11,November,,
+FR198,,The Lamb & Fountain,57 Castle St,BA11 3BW,0871 951 1000,Freda,6,Jun-19,,,0,12,December,,
+FR085,,The Model Centre,"1-2 Catherine St, Frome",BA11 1DA,,,4,Aug-19,,,0,12,December,,
+FR153,,The Sun Inn,"6 Catherine St, Frome",BA11 1DA,,,4,Aug-19,,,0,12,December,,
+FR035,1,The Mill at Rode,"Rode Hill, Rode",BA11 6AG,01373 831 100,,3,Sep-19,,,0,12,December,,
+FR195,6,Farleigh Rd Farmshop & Café,Farleigh Road,BA2 7NG,,,2,Oct-19,,,0,12,December,,Events (A Few!)
+FR025,,Ellen Bray,"The Old Library, 7A King Street, Frome",BA11 1BS,01373 462 139,,2,Oct-19,,,0,12,December,,Posters
+FR033,,McColls,"34 Rodden Road, Frome",BA11 2AE,,,2,Oct-19,,,0,12,December,,
+FR084,,Cayford Family Butcher,"24 Catherine St, Frome",BA11 1DB,,,2,Oct-19,,,0,12,December,,Events
+FR144,,Co Operative (RadCo),"11 Westway, Frome",BA11 1BS,,,2,Oct-19,,,0,12,December,,
+FR188,,Co Operative Store,"8 Bath Rd, Frome",BA11 2HD,,,2,Oct-19,,,0,12,December,,
+FR199,2,Screfix,"Commerce Park, Frome",BA11 2FB,,,12,,,,0,12,December,,
+FR193,3,Moat & Turret Café,"Castle St, Nunney",BA11 4NJ,,Harvey,12,,,,0,12,December,,?
+FR076,4,Bell Hill Garage,"Bell Hill, Norton St Phillip",BA2 7LT,01373 834 252,,12,,,,0,12,December,,
+FR151,,St Albeins Pharmacy (Frome medical centre),"Enos Way, Frome",BA11 2FH,,,12,,,,0,12,December,,
+FR091,9,The Wheatsheaf,"Combe Hay Lane, Combe Hay",BA2 7EG,,,*,Nov-19,,,#VALUE!,#VALUE!,#VALUE!,,Will call for collection
+FR168,,Eden Rose,"2 Cheap St, Frome",BA11 1BN,,,,,,,0,,,,?
+FR178,,Carole Whittard,14 Charles Rd,BA11 1NT,,,*,,,,#VALUE!,,,,Will call for collection
+FR192,,Bon Bon Chic,"9 Catherine Hill, Frome",BA11 1BY,,,,,,,0,,,,
+FR197,,Victoria Park Café,"Victoria park, Frome",BA11,,,,,,,0,,,,Check all details!

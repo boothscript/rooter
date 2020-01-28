@@ -12,7 +12,7 @@ main();
 
 runTests = async () => {
   await it("Create new file when making new instance of repo", () => {
-    const randomFileName = crypto.randomBytes(8).toString("hex") + ".json";
+    const randomFileName = crypto.randomBytes(8).toString("hex") + ".test.json";
     try {
       fs.unlinkSync(randomFileName);
     } catch {}
@@ -61,7 +61,7 @@ runTests = async () => {
 
 const clearUp = () => {
   for (let file of fs.readdirSync(process.cwd())) {
-    if (file.includes(".json")) {
+    if (file.includes(".test.json")) {
       fs.unlinkSync(file);
     }
   }
