@@ -3,13 +3,6 @@ const assert = require("assert");
 const Repo = require("../../src/Repos/repo");
 const crypto = require("crypto");
 
-// main runs tests and clear up
-const main = async () => {
-  await runTests();
-  clearUp();
-};
-main();
-
 runTests = async () => {
   await it("Create new file when making new instance of repo", () => {
     const randomFileName = crypto.randomBytes(8).toString("hex") + ".test.json";
@@ -18,12 +11,11 @@ runTests = async () => {
     } catch {}
     const repo = new Repo(randomFileName);
 
-    console.log(fs.accessSync(randomFileName));
     assert.equal(fs.readFileSync(randomFileName), "[]");
   });
 
   await it("Create method adds items to repo", async () => {
-    const randomFileName = crypto.randomBytes(8).toString("hex") + ".json";
+    const randomFileName = crypto.randomBytes(8).toString("hex") + ".test.json";
     const repo = new Repo(randomFileName);
 
     const record = await repo.create({ name: "steve" });
@@ -35,7 +27,7 @@ runTests = async () => {
   });
 
   await it("Add multiple records to repo and test getOne and getOneBy methods", async () => {
-    const randomFileName = crypto.randomBytes(8).toString("hex") + ".json";
+    const randomFileName = crypto.randomBytes(8).toString("hex") + ".test.json";
     const repo = new Repo(randomFileName);
 
     // generate test records
@@ -66,3 +58,10 @@ const clearUp = () => {
     }
   }
 };
+
+// main runs tests and clear up
+const main = async () => {
+  await runTests();
+  clearUp();
+};
+main();

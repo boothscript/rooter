@@ -37,7 +37,7 @@ const run = async () => {
         notes
       };
     });
-    console.log(result);
+    fs.writeFileSync("testing.json", JSON.stringify(result, null, 2));
   });
 };
 
