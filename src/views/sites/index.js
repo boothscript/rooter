@@ -62,11 +62,25 @@ module.exports = ({ sitesData }) => {
                         </div>
                         <div class="level-right">
                             <div class="level-item">
-                                <div class="dropdown">
-                                    <button class="button is-small">
-                                        <span>Filter By </span>
-                                        <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                                    </button>
+                                <div class="dropdown is-hoverable">
+                                <div class="dropdown-trigger">
+                                <button class="button is-small">
+                                    <span>Filter By </span>
+                                    <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                                </button>
+                            </div>
+                            <div id="filterby-dropdown" class="dropdown-menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item" href="/?filter=overdue">Collection Overdue</a>
+                                    <a class="dropdown-item" href="/?filter=dueThisMonth">Due This Month</a>
+                                    <a class="dropdown-item" href="/?filter=dueNextMonth">Due Next Month</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="/?filter=collectedLastMonth">Collected Last Month</a>
+                                    <a class="dropdown-item" href="/?filter=collectedThisMonth">Collected This Month</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="/?filter=noCollections">No Collections</a>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                             <div class="level-item">
