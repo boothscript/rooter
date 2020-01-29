@@ -1,0 +1,61 @@
+const monthToString = n => {
+  const monthsShort = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "may",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  return monthsShort[n];
+};
+
+module.exports = {
+  addCollectionDates: sitesData => {
+    return sitesData.map(site => {
+      // add site.lastCollectionDate
+      const siteCollections = site.history.collections.slice(-1);
+      site.lastCollectionDate =
+        siteCollections.length > 0
+          ? new Date(siteCollections[0].date)
+          : undefined;
+
+      // add site.nextCollectionDate
+      let nextDate;
+      if (site.lastCollectionDate) {
+        nextDate = new Date(site.lastCollectionDate.valueOf());
+        month = site.lastCollectionDate.getMonth() + site.collectionFrequency;
+
+        if (month > 11) {
+          nextDate.setFullYear(nextDate.getFullYear() + 1);
+          nextDate.setMonth(month % 12);
+        } else {
+          nextDate.setMonth(month);
+        }
+      }
+      site.nextCollectionDate = nextDate || undefined;
+      // add site.lastCollectionString
+      if (site.lastCollectionDate) {
+        site.lastCollectionString = [
+          monthToString(site.lastCollectionDate.getMonth()),
+          site.lastCollectionDate.getFullYear()
+        ].join(" ");
+      }
+
+      // add site.nextCollectionString
+      if (site.nextCollectionDate) {
+        site.nextCollectionString = [
+          monthToString(site.nextCollectionDate.getMonth()),
+          site.nextCollectionDate.getFullYear()
+        ].join(" ");
+      }
+      return site;
+    });
+  }
+};

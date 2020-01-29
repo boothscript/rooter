@@ -9,8 +9,8 @@ module.exports = ({ sitesData }) => {
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
                 <td>${site.address.town}</td>
-                <td> --- </td>
-                <td> --- </td>
+                <td> ${site.lastCollectionString}</td>
+                <td> ${site.nextCollectionString} </td>
                 <td><button class="button is-small is-secondary">View</button></td>
             </tr>
         `;
@@ -49,6 +49,9 @@ module.exports = ({ sitesData }) => {
                         <div class="level-item">
                             <button class="button is-primary">Add Site</button>      
                         </div>
+                        <div class="level-item">
+                            <button class="button is-primary"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
+                        </div>
                     </div>
                 </div>
                     <section class="level">
@@ -67,11 +70,22 @@ module.exports = ({ sitesData }) => {
                                 </div>
                             </div>
                             <div class="level-item">
-                                <div class="dropdown">
-                                    <button class="button is-small">
-                                        <span>Sort By </span>
-                                        <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                                    </button>
+                                <div class="dropdown is-hoverable">
+                                    <div class="dropdown-trigger">
+                                        <button class="button is-small">
+                                            <span>Sort By </span>
+                                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                                        </button>
+                                    </div>
+                                    <div id="sortby-dropdown" class="dropdown-menu">
+                                        <div class="dropdown-content">
+                                            <a class="dropdown-item" href="/?sort=nextSortDesc">Next Collection (desc)</a>
+                                            <a class="dropdown-item" href="/?sort=nextSortAsc">Next Collection (asc)</a>
+                                            <hr class="dropdown-divider">
+                                            <a class="dropdown-item" href="/?sort=lastSortDesc">Last Collection (desc)</a>
+                                            <a class="dropdown-item" href="/?sort=lastSortAsc">Last Collection (asc)</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

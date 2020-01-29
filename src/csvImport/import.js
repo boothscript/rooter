@@ -1,5 +1,8 @@
 const parse = require("csv-parse");
 const fs = require("fs");
+const Repo = require("../Repos/repo");
+
+const repo = new Repo("none.json");
 
 const run = async () => {
   const data = fs.readFileSync("data.csv").toString("utf-8");
@@ -16,8 +19,18 @@ const run = async () => {
         contactName,
         collectionFrequency,
         currentYearTotal,
+        prevCollection,
         notes
       } = site;
+
+      // date processing on prev collection
+      let initCollectionDate;
+      if (prevCollection !== "") {
+        dateText = `2-${prevCollection}`;
+        console.log(dateText);
+        initCollectionDate = new Date(dateText);
+      }
+
       return {
         boxNumber,
         route,
@@ -32,9 +45,19 @@ const run = async () => {
           name: contactName,
           number: contactNumber
         },
-        collectionFrequency,
+        collectionFrequency: parseInt(collectionFrequency),
         initalYearTotal: currentYearTotal,
-        notes
+        notes,
+        history: {
+          collections: initCollectionDate
+            ? [
+                {
+                  id: repo.randomId(),
+                  date: initCollectionDate
+                }
+              ]
+            : []
+        }
       };
     });
     fs.writeFileSync("testing.json", JSON.stringify(result, null, 2));
