@@ -5,7 +5,7 @@ module.exports = ({ sitesData, totalNumOfSites }) => {
     .map(site => {
       return `
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" class="row-select" /></td>
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
                 <td>${site.address.town}</td>
@@ -20,7 +20,7 @@ module.exports = ({ sitesData, totalNumOfSites }) => {
         <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
-                    <th><input type="checkbox" /></th>
+                    <th><input type="checkbox" class="select-all" /></th>
                     <th>Code</th>
                     <th>Name</th>
                     <th>Town</th>

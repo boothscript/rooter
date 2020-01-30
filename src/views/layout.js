@@ -18,6 +18,8 @@ module.exports = content => {
                 <main class="section has-background-light">
                     ${content}
                 </main>
+
+            <script src="/js/app.js"></script>
             </body>
         </html>
     `;
