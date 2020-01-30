@@ -1,6 +1,6 @@
 const layout = require("../layout");
 
-module.exports = ({ sitesData }) => {
+module.exports = ({ sitesData, totalNumOfSites }) => {
   const tableRows = sitesData
     .map(site => {
       return `
@@ -55,7 +55,7 @@ module.exports = ({ sitesData }) => {
                         <section class="level">
                             <div class="level-left">
                                 <div class="level-item">
-                                    <p class="subtitle is-7">Showing <strong>134</strong> of <strong>134</strong> sites.</p>
+                                    <p class="subtitle is-7">Showing <strong>${sitesData.length}</strong> of <strong>${totalNumOfSites}</strong> sites.</p>
                                 </div>
                             </div>
                             <div class="level-right">
@@ -99,6 +99,9 @@ module.exports = ({ sitesData }) => {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="level-item>
+                                    <button class="button is-small"><a class="button is-small" href="/">Reset</a></button>
                                 </div>
                             </div>
                         </section>

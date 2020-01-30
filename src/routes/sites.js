@@ -10,22 +10,19 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const sitesData = addCollectionDates(await sitesRepo.getAll());
+  const totalNumOfSites = sitesData.length;
   if (req.query.sort) {
     const sortedData = sitesData.sort(sortFunctions[req.query.sort]);
-    return res.send(indexTemplate({ sitesData: sortedData }));
+    return res.send(indexTemplate({ sitesData: sortedData, totalNumOfSites }));
   }
   if (req.query.filter) {
     const filteredData = sitesData.filter(filterFunctions[req.query.filter]);
-    return res.send(indexTemplate({ sitesData: filteredData }));
+    return res.send(
+      indexTemplate({ sitesData: filteredData, totalNumOfSites })
+    );
   }
 
-  res.send(indexTemplate({ sitesData }));
-});
-
-router.get("/sortby/:sortValue", async (req, res) => {
-  const sitesData = addCollectionDates(await sitesRepo.getAll());
-
-  res.send(indexTemplate({ sitesData: sortedData }));
+  res.send(indexTemplate({ sitesData, totalNumOfSites }));
 });
 
 module.exports = router;
