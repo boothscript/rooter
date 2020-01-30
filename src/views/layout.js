@@ -15,7 +15,7 @@ module.exports = content => {
                         </div>
                     </nav>
                 </section>
-                <main class="section">
+                <main class="section has-background-light">
                     ${content}
                 </main>
             </body>

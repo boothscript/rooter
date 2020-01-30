@@ -17,9 +17,9 @@ module.exports = ({ sitesData }) => {
     })
     .join("");
   const table = `
-        <table class="table is-striped is-fullwidth ">
-            <thread >
-                <tr >
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
                     <th><input type="checkbox" /></th>
                     <th>Code</th>
                     <th>Name</th>
@@ -29,7 +29,7 @@ module.exports = ({ sitesData }) => {
                     <th></th>
 
                 </tr>
-            </thread>
+            </thead>
             <tbody>
                 ${tableRows}
             </tbody>
@@ -38,77 +38,76 @@ module.exports = ({ sitesData }) => {
 
   const main = `
             <div>
-                
                 <div class="columns">
-                <div class="column"></div>
-                <div class="column is-four-fifths has-background-light">
-                    <div class="level">
-                    <div class="level-left">
-                    </div>
-                    <div class="level-right">
-                        <div class="level-item">
-                            <button class="button is-primary">Add Site</button>      
-                        </div>
-                        <div class="level-item">
-                            <button class="button is-primary"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
-                        </div>
-                    </div>
-                </div>
-                    <section class="level">
-                        <div class="level-left">
-                            <div class="level-item">
-                                <p class="subtitle is-7">Showing <strong>134</strong> of <strong>134</strong> sites.</p>
-                            </div>
-                        </div>
-                        <div class="level-right">
-                            <div class="level-item">
-                                <div class="dropdown is-hoverable">
-                                <div class="dropdown-trigger">
-                                <button class="button is-small">
-                                    <span>Filter By </span>
-                                    <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                                </button>
-                            </div>
-                            <div id="filterby-dropdown" class="dropdown-menu">
-                                <div class="dropdown-content">
-                                    <a class="dropdown-item" href="/?filter=overdue">Collection Overdue</a>
-                                    <a class="dropdown-item" href="/?filter=dueThisMonth">Due This Month</a>
-                                    <a class="dropdown-item" href="/?filter=dueNextMonth">Due Next Month</a>
-                                    <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="/?filter=collectedLastMonth">Collected Last Month</a>
-                                    <a class="dropdown-item" href="/?filter=collectedThisMonth">Collected This Month</a>
-                                    <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="/?filter=noCollections">No Collections</a>
+                    <div class="column"></div>
+                    <div class="column is-four-fifths has-background-light">
+                        <div class="level">
+                            <div class="level-left"></div>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <button class="button is-primary">Add Site</button>      
+                                </div>
+                                <div class="level-item">
+                                    <button class="button is-primary"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
                                 </div>
                             </div>
+                        </div>
+                        <section class="level">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <p class="subtitle is-7">Showing <strong>134</strong> of <strong>134</strong> sites.</p>
                                 </div>
                             </div>
-                            <div class="level-item">
-                                <div class="dropdown is-hoverable">
-                                    <div class="dropdown-trigger">
-                                        <button class="button is-small">
-                                            <span>Sort By </span>
-                                            <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
-                                        </button>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <div class="dropdown is-hoverable">
+                                        <div class="dropdown-trigger">
+                                            <button class="button is-small">
+                                                <span>Filter By </span>
+                                                <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                                            </button>
+                                        </div>
+                                        <div id="filterby-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-content">
+                                                <a class="dropdown-item" href="/?filter=overdue">Collection Overdue</a>
+                                                <a class="dropdown-item" href="/?filter=dueThisMonth">Due This Month</a>
+                                                <a class="dropdown-item" href="/?filter=dueNextMonth">Due Next Month</a>
+                                                <hr class="dropdown-divider">
+                                                <a class="dropdown-item" href="/?filter=collectedLastMonth">Collected Last Month</a>
+                                                <a class="dropdown-item" href="/?filter=collectedThisMonth">Collected This Month</a>
+                                                <hr class="dropdown-divider">
+                                                <a class="dropdown-item" href="/?filter=noCollections">No Collections</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div id="sortby-dropdown" class="dropdown-menu">
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="/?sort=nextSortDesc">Next Collection (desc)</a>
-                                            <a class="dropdown-item" href="/?sort=nextSortAsc">Next Collection (asc)</a>
-                                            <hr class="dropdown-divider">
-                                            <a class="dropdown-item" href="/?sort=lastSortDesc">Last Collection (desc)</a>
-                                            <a class="dropdown-item" href="/?sort=lastSortAsc">Last Collection (asc)</a>
+                                </div>
+                                <div class="level-item">
+                                    <div class="dropdown is-hoverable">
+                                        <div class="dropdown-trigger">
+                                            <button class="button is-small">
+                                                <span>Sort By </span>
+                                                <span class="icon is-small"><i class="fas fa-angle-down"></i></span>
+                                            </button>
+                                        </div>
+                                        <div id="sortby-dropdown" class="dropdown-menu">
+                                            <div class="dropdown-content">
+                                                <a class="dropdown-item" href="/?sort=nextSortDesc">Next Collection (desc)</a>
+                                                <a class="dropdown-item" href="/?sort=nextSortAsc">Next Collection (asc)</a>
+                                                <hr class="dropdown-divider">
+                                                <a class="dropdown-item" href="/?sort=lastSortDesc">Last Collection (desc)</a>
+                                                <a class="dropdown-item" href="/?sort=lastSortAsc">Last Collection (asc)</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </section>
+                        <div >
+                            ${table}
                         </div>
-                    </section>
-                    <div class="">
-                        ${table}
                     </div>
+                    <div class="column"></div>
                 </div>
-                <div class="column"></div>
             </div>
 
             `;

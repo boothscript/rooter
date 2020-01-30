@@ -32,7 +32,6 @@ module.exports = {
   lastSortAsc: (a, b) => {
     a = a.lastCollectionDate;
     b = b.lastCollectionDate;
-    console.log(a, b);
 
     if (a && b) {
       return a > b ? 1 : a < b ? -1 : 0;
