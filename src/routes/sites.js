@@ -5,6 +5,7 @@ const { addCollectionDates } = require("./siteDataProcessor");
 const sortFunctions = require("./sortFunctions");
 const filterFunctions = require("./filterFunctions");
 const indexTemplate = require("../views/sites/index.js");
+const addTemplate = require("../views/sites/add");
 
 const router = express.Router();
 
@@ -24,5 +25,11 @@ router.get("/", async (req, res) => {
 
   res.send(indexTemplate({ sitesData, totalNumOfSites }));
 });
+
+router.get("/sites/add", (req, res) => {
+  res.send(addTemplate());
+});
+
+router.post("/sites/add", (req, res) => {});
 
 module.exports = router;
