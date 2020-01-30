@@ -2,9 +2,9 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 
 const sitesRepo = require("../Repos/sitesRepo");
-const { addCollectionDates } = require("./siteDataProcessor");
-const sortFunctions = require("./sortFunctions");
-const filterFunctions = require("./filterFunctions");
+const { addCollectionDates } = require("./helperFunctions/siteDataProcessor");
+const sortFunctions = require("./helperFunctions/sortFunctions");
+const filterFunctions = require("./helperFunctions/filterFunctions");
 const indexTemplate = require("../views/sites/index.js");
 const addTemplate = require("../views/sites/add");
 const {
@@ -20,7 +20,7 @@ const {
   checkPreviousCollectionAmount,
   checkNotes,
   checkCollectionDate
-} = require("./validatiors");
+} = require("./helperFunctions/validatiors");
 
 const router = express.Router();
 
