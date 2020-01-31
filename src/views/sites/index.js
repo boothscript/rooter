@@ -101,7 +101,7 @@ module.exports = ({ sitesData, totalNumOfSites }) => {
                                     </div>
                                 </div>
                                 <div class="level-item>
-                                    <button class="button is-small"><a class="button is-small" href="/">Reset</a></button>
+                                    <button class="button is-small"><a class="button is-small" href="/?reset=true">Reset</a></button>
                                 </div>
                             </div>
                         </section>

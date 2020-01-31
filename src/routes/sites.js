@@ -25,20 +25,46 @@ const {
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  let tableData;
   const sitesData = addCollectionDates(await sitesRepo.getAll());
   const totalNumOfSites = sitesData.length;
-  if (req.query.sort) {
-    const sortedData = sitesData.sort(sortFunctions[req.query.sort]);
-    return res.send(indexTemplate({ sitesData: sortedData, totalNumOfSites }));
+  // reset is pressed
+  if (req.query.reset) {
+    req.session.sort = null;
+    req.session.filter = null;
   }
-  if (req.query.filter) {
-    const filteredData = sitesData.filter(filterFunctions[req.query.filter]);
+  // Sort is selected
+  if (req.query.sort) {
+    req.session.sort = req.query.sort;
+    // check for filter
+    if (req.session.filter) {
+      tableData = sitesData
+        .filter(filterFunctions[req.session.filter])
+        .sort(sortFunctions[req.session.sort]);
+    } else {
+      tableData = sitesData.sort(sortFunction[req.session.sort]);
+    }
+
     return res.send(
-      indexTemplate({ sitesData: filteredData, totalNumOfSites })
+      indexTemplate({ sitesData: tableData || sitesData, totalNumOfSites })
     );
   }
+  // Filter is selected
+  if (req.query.filter) {
+    req.session.filter = req.query.filter;
+    // check for sort
+    if (req.session.sort) {
+      tableData = sitesData
+        .filter(filterFunctions[req.session.filter])
+        .sort(sortFunctions[req.session.sort]);
+    } else {
+      tableData = sitesData.filter(filterFunctions[req.session.filter]);
+    }
+  }
 
-  res.send(indexTemplate({ sitesData, totalNumOfSites }));
+  res.send(
+    indexTemplate({ sitesData: tableData || sitesData, totalNumOfSites })
+  );
 });
 
 router.get("/sites/add", (req, res) => {
