@@ -58,6 +58,7 @@ class Repo {
     const record = records.find(record => record.id === id);
     Object.assign(record, attrs);
     await this.writeAll(records);
+    console.log("written");
   }
 
   randomId() {
