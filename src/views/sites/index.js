@@ -1,6 +1,6 @@
 const layout = require("../layout");
 
-module.exports = ({ sitesData, totalNumOfSites }) => {
+module.exports = ({ sitesData, totalNumOfSites, messages }) => {
   const tableRows = sitesData
     .map(site => {
       return `
@@ -115,5 +115,5 @@ module.exports = ({ sitesData, totalNumOfSites }) => {
 
             `;
 
-  return layout(main);
+  return layout(main, messages);
 };

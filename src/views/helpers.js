@@ -32,5 +32,25 @@ module.exports = {
     const month = monthArr[date.getMonth()];
     const year = date.getFullYear();
     return `${day} ${month} ${year}`;
+  },
+  calcCollectionStats: site => {
+    const thisYearSum = site.history.collections
+      .filter(collection => {
+        const colDate = new Date(collection.date);
+        const todaysDate = new Date();
+
+        return colDate.getFullYear() === todaysDate.getFullYear();
+      })
+      .reduce((totalValue, currentValue) => {
+        return totalValue + currentValue.amount;
+      }, 0);
+    const allTimeSum = site.history.collections.reduce(
+      (totalValue, currentValue) => {
+        return totalValue + currentValue.amount;
+      },
+      0
+    );
+
+    return { thisYearSum, allTimeSum };
   }
 };

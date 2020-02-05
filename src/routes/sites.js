@@ -47,7 +47,10 @@ router.get("/", async (req, res) => {
     }
 
     return res.send(
-      indexTemplate({ sitesData: tableData || sitesData, totalNumOfSites })
+      indexTemplate({
+        sitesData: tableData || sitesData,
+        totalNumOfSites
+      })
     );
   }
   // Filter is selected
@@ -62,9 +65,14 @@ router.get("/", async (req, res) => {
       tableData = sitesData.filter(filterFunctions[req.session.filter]);
     }
   }
-
+  const messages = req.session.messages || [];
+  req.session.messages = null;
   res.send(
-    indexTemplate({ sitesData: tableData || sitesData, totalNumOfSites })
+    indexTemplate({
+      sitesData: tableData || sitesData,
+      totalNumOfSites,
+      messages
+    })
   );
 });
 
@@ -128,7 +136,21 @@ router.post(
 
 router.get("/sites/:id/detail", async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
-  res.send(detailTemplate({ site }));
+  // add collection dates
+  siteWithColDates = addCollectionDates([site]);
+  res.send(detailTemplate({ site: siteWithColDates[0] }));
+});
+
+router.post("/sites/:id/delete", async (req, res) => {
+  // await sitesRepo.delete(req.params.id);
+  if (!req.session.messages) {
+    req.session.messages = [];
+  }
+  req.session.messages.push({
+    msg: `Site ID ${req.params.id} has been deleted`,
+    style: "danger"
+  });
+  res.redirect("/");
 });
 
 module.exports = router;

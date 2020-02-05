@@ -1,4 +1,16 @@
-module.exports = content => {
+module.exports = (content, messages = []) => {
+  const alerts = messages
+    .map(alert => {
+      return `
+        <article class="message is-${alert.style}">
+            <div class="message-header"><button class="delete"></button></div>
+            <div class="message-body">
+                ${alert.msg}
+            </div>
+        </article>
+        `;
+    })
+    .join("");
   return `
         <html>
             <head>
@@ -7,6 +19,7 @@ module.exports = content => {
             <link rel="stylesheet" href="datepicker.min.css">
             </head>
             <body>
+                ${alerts}
                 <section>
                     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
                         <div class="navbar-brand ">

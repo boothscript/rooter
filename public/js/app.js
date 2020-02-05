@@ -1,6 +1,6 @@
-// SELECT ALL CHECKBOXES
 // const datepicker = require("js-datepicker");
 
+// SELECT ALL CHECKBOXES
 const selectAllBox = document.querySelector(".select-all");
 const tableSelectBoxes = document.querySelectorAll(".row-select");
 
@@ -25,3 +25,17 @@ if (formFields) {
 
 // DATE PICKER
 // const picker = datepicker(".datepicker", { alwaysShow: true });
+
+//  DELETE MODAL TOGGLE
+const delButton = document.querySelector("#del-button");
+const delModal = document.querySelector("#del-modal");
+
+delButton.addEventListener("click", () => {
+  delModal.classList.add("is-active");
+  delModal.querySelector(".modal-background").addEventListener("click", () => {
+    delModal.classList.remove("is-active");
+  });
+  delModal.querySelector("#cancel-delete").addEventListener("click", () => {
+    delModal.classList.remove("is-active");
+  });
+});
