@@ -1,8 +1,7 @@
 const layout = require("../layout");
-const sitesRepo = require("../../Repos/sitesRepo");
-const { displayDate, calcCollectionStats } = require("../helpers");
+const { getErrors, displayDate, calcCollectionStats } = require("../helpers");
 
-module.exports = ({ site, messages }) => {
+module.exports = ({ site, messages, errors }) => {
   const { allTimeSum, thisYearSum } = calcCollectionStats(site);
   const tableBody = site.history.collections
     .map(row => {
@@ -21,12 +20,18 @@ module.exports = ({ site, messages }) => {
     })
     .join("");
   const main = `
-        <div class="level>
-            <div class="level-left"></div>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <div>
+                        <button class="button is-primary" id="add-col-button">Add Collection</button>
+                    </div>
+                </div>
+            </div>
             <div class="level-right">
                 <div class="level-item">
                     <div>
-                        <button class="button is-primary">Edit Site</button>
+                        <button class="button">Edit Site</button>
                     </div>
                 </div>
                 <div class="level-item">
@@ -36,7 +41,6 @@ module.exports = ({ site, messages }) => {
                 </div>
             </div>
         </div>
-        <br>
         <div class="columns">
             <div class="column">
                 <div class="card">
@@ -193,8 +197,54 @@ module.exports = ({ site, messages }) => {
                 </section>
                 <footer class="modal-card-foot">
                     <form method="POST" action="/sites/${site.id}/delete">
-                        <button class="button" id="cancel-delete">Cancel</button>
+                        <button class="button cancel">Cancel</button>
                         <button class="button is-danger">Delete</button>
+                    </form>
+                </footer>
+            </div>
+        </div>
+        <div class="modal ${errors ? "is-active" : ""}" id="add-col-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Collection<p>
+                </header>
+                <section class="modal-card-body">
+                    <form method="POST" action="/sites/${site.id}/collection">
+                    <div class="field">
+                        <label class="label">Date</label>
+                        <div class="control">
+                        <input class="input" type="date" name="collectionDate">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "collectionDate"
+                        )}</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Comment</label>
+                        <div class="control">
+                        <input class="input" type="text" placeholder="Collection" name="collectionComment">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "collectionComment"
+                        )}</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Amount</label>
+                        <div class="control">
+                        <input class="input" type="currency" placeholder="£100.00" name="amount">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "amount"
+                        )}</p>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                        <button class="button cancel">Cancel</button>
+                        <button class="button is-primary">Save</button>
                     </form>
                 </footer>
             </div>

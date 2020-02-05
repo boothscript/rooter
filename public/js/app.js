@@ -35,7 +35,25 @@ delButton.addEventListener("click", () => {
   delModal.querySelector(".modal-background").addEventListener("click", () => {
     delModal.classList.remove("is-active");
   });
-  delModal.querySelector("#cancel-delete").addEventListener("click", () => {
+  delModal.querySelector(".cancel").addEventListener("click", e => {
+    e.preventDefault();
     delModal.classList.remove("is-active");
+  });
+});
+
+// ADD COLLECTION MODAL TOGGLE
+const addColButton = document.querySelector("#add-col-button");
+const addColModal = document.querySelector("#add-col-modal");
+
+addColButton.addEventListener("click", () => {
+  addColModal.classList.add("is-active");
+  addColModal
+    .querySelector(".modal-background")
+    .addEventListener("click", () => {
+      addColModal.classList.remove("is-active");
+    });
+  addColModal.querySelector(".cancel").addEventListener("click", e => {
+    e.preventDefault();
+    addColModal.classList.remove("is-active");
   });
 });

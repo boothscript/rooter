@@ -73,13 +73,20 @@ module.exports = {
     .toInt()
     .isInt({ min: 1, max: 12 })
     .withMessage("Must be a number bewtween 1 and 12 (months)"),
-  checkPreviousCollectionAmount: check("previousCollectionAmount")
+  checkAmount: check("amount")
     .trim()
     .isCurrency({ symbol: "£" })
-    .withMessage("Invalid currency amount."),
+    .withMessage("Invalid currency amount.")
+    .toFloat(),
   checkNotes: check("notes")
     .trim()
     .isLength({ max: 500 })
     .withMessage("Notes must be no longer than 500 characters."),
-  checkCollectionDate: check("collectionDate").trim()
+  checkCollectionDate: check("collectionDate")
+    .trim()
+    .toDate(),
+  checkComments: check("collectionComment")
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Comments must be no longer than 100 characters.")
 };

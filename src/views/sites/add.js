@@ -79,7 +79,7 @@ module.exports = ({ errors }) => {
           <div class="field">
             <label class="label">Previous Collection Amount</label>
             <div class="control">
-              <input class="input" placeholder="£87.09" name="previousCollectionAmount"/>
+              <input class="input" placeholder="£87.09" name="amount"/>
             </div>
             <p class="help is-danger">${getErrors(
               errors,

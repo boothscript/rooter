@@ -18,9 +18,10 @@ const {
   checkContactName,
   checkContactNumber,
   checkCollectionFequency,
-  checkPreviousCollectionAmount,
+  checkAmount,
   checkNotes,
-  checkCollectionDate
+  checkCollectionDate,
+  checkComments
 } = require("./helperFunctions/validatiors");
 
 const router = express.Router();
@@ -92,7 +93,7 @@ router.post(
     checkContactName,
     checkContactNumber,
     checkCollectionFequency,
-    checkPreviousCollectionAmount,
+    checkAmount,
     checkNotes,
     checkCollectionDate
   ],
@@ -124,7 +125,7 @@ router.post(
               id: sitesRepo.randomId(),
               date: req.body.collectionDate,
               amount: req.body.previousCollectionAmount,
-              note: "added to system"
+              comment: "added to system"
             }
           ]
         }
@@ -152,5 +153,28 @@ router.post("/sites/:id/delete", async (req, res) => {
   });
   res.redirect("/");
 });
+
+router.post(
+  "/sites/:id/collection",
+  [checkCollectionDate, checkComments, checkAmount],
+  async (req, res) => {
+    const { errors } = validationResult(req);
+    if (errors) {
+      const site = await sitesRepo.getOne(req.params.id);
+      // add collection dates
+      siteWithColDates = addCollectionDates([site]);
+      res.send(detailTemplate({ site: siteWithColDates[0], errors }));
+    }
+    const record = await sitesRepo.getOne(req.params.id);
+    record.history.collections.push({
+      id: sitesRepo.randomId(),
+      date: req.body.collectionDate,
+      amount: req.body.amount,
+      comment: req.body.collectionComment
+    });
+    await sitesRepo.update(req.params.id, { history: record.history });
+    res.redirect(`/sites/${req.params.id}/detail`);
+  }
+);
 
 module.exports = router;
