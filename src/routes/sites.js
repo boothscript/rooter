@@ -7,6 +7,7 @@ const sortFunctions = require("./helperFunctions/sortFunctions");
 const filterFunctions = require("./helperFunctions/filterFunctions");
 const indexTemplate = require("../views/sites/index.js");
 const addTemplate = require("../views/sites/add");
+const detailTemplate = require("../views/sites/detail");
 const {
   checkBoxNumber,
   checkSiteName,
@@ -124,5 +125,10 @@ router.post(
     }
   }
 );
+
+router.get("/sites/:id/detail", async (req, res) => {
+  const site = await sitesRepo.getOne(req.params.id);
+  res.send(detailTemplate({ site }));
+});
 
 module.exports = router;
