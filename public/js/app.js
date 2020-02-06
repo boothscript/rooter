@@ -10,6 +10,23 @@ if (selectAllBox) {
   });
 }
 
+// CREATE ROUTE FUNCTIONALITY
+document.querySelector("button.create-route").addEventListener("click", () => {
+  const tableRows = document.querySelectorAll("tr");
+  const selectedRows = Array.from(tableRows)
+    .filter(row => {
+      const select = row.querySelector(".row-select");
+      return select && select.checked;
+    })
+    .map(row => {
+      const select = row.querySelector(".row-select");
+      return select.id;
+    });
+  document.querySelector("#site-list-input").value = selectedRows;
+  const createRouteModal = document.querySelector("#create-route-modal");
+  createRouteModal.classList.add("is-active");
+});
+
 // FORM INPUT VALIDATION
 const formFields = document.querySelectorAll("form .field");
 

@@ -5,7 +5,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
     .map(site => {
       return `
             <tr>
-                <td><input type="checkbox" class="row-select" /></td>
+                <td><input type="checkbox" class="row-select" id="${site.id}" /></td>
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
                 <td>${site.address.town}</td>
@@ -48,7 +48,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                     <a href="/sites/add" class="button is-primary">Add Site</a>      
                                 </div>
                                 <div class="level-item">
-                                    <button class="button is-primary"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
+                                    <button class="button is-primary create-route"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
                                 </div>
                             </div>
                         </div>
@@ -110,6 +110,30 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                         </div>
                     </div>
                     <div class="column"></div>
+                    <div class="modal" id="create-route-modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title">Save Route<p>
+                            </header>
+                            <section class="modal-card-body">
+                                <form method="post" action="/routes/add">
+                                    <input type="hidden" name="siteList" id="site-list-input" />
+                                    <div class="field">
+                                        <label class="label">Route Name</label>
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="Monday 12th PM" name="routeName">
+                                            <p class="help is-danger"></p>
+                                        </div>
+                                    </div>
+                            </section>
+                            <footer class="modal-card-foot">
+                                    <button class="button cancel">Cancel</button>
+                                    <button class="button is-primary">save</button>
+                                </form>
+                            </footer>
+                        </div>
+                    </div>
                 </div>
             </div>
 
