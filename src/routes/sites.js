@@ -3,8 +3,7 @@ const { validationResult } = require("express-validator");
 
 const sitesRepo = require("../Repos/sitesRepo");
 const { addCollectionDates } = require("./helperFunctions/siteDataProcessor");
-const sortFunctions = require("./helperFunctions/sortFunctions");
-const filterFunctions = require("./helperFunctions/filterFunctions");
+const handleTable = require("./helperFunctions/handleTableFunctions");
 const indexTemplate = require("../views/sites/index.js");
 const addTemplate = require("../views/sites/add");
 const detailTemplate = require("../views/sites/detail");
@@ -27,50 +26,13 @@ const {
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  let tableData;
   const sitesData = addCollectionDates(await sitesRepo.getAll());
   const totalNumOfSites = sitesData.length;
-  // reset is pressed
-  if (req.query.reset) {
-    req.session.sort = null;
-    req.session.filter = null;
-  }
-  // Sort is selected
-  if (req.query.sort) {
-    req.session.sort = req.query.sort;
-    // check for filter
-    if (req.session.filter) {
-      tableData = sitesData
-        .filter(filterFunctions[req.session.filter])
-        .sort(sortFunctions[req.session.sort]);
-    } else {
-      tableData = sitesData.sort(sortFunction[req.session.sort]);
-    }
-
-    return res.send(
-      indexTemplate({
-        sitesData: tableData || sitesData,
-        totalNumOfSites
-      })
-    );
-  }
-  // Filter is selected
-  if (req.query.filter) {
-    req.session.filter = req.query.filter;
-    // check for sort
-    if (req.session.sort) {
-      tableData = sitesData
-        .filter(filterFunctions[req.session.filter])
-        .sort(sortFunctions[req.session.sort]);
-    } else {
-      tableData = sitesData.filter(filterFunctions[req.session.filter]);
-    }
-  }
   const messages = req.session.messages || [];
   req.session.messages = null;
   res.send(
     indexTemplate({
-      sitesData: tableData || sitesData,
+      sitesData: handleTable(sitesData, req),
       totalNumOfSites,
       messages
     })
