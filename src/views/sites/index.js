@@ -11,7 +11,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                 <td>${site.address.town}</td>
                 <td> ${site.lastCollectionString}</td>
                 <td> ${site.nextCollectionString} </td>
-                <td><button class="button is-small is-secondary">View</button></td>
+                <td><a href="/sites/${site.id}/detail" class="button is-small is-secondary">View</a></td>
             </tr>
         `;
     })
@@ -45,7 +45,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                             <div class="level-left"></div>
                             <div class="level-right">
                                 <div class="level-item">
-                                    <button class="button is-primary">Add Site</button>      
+                                    <a href="/sites/add" class="button is-primary">Add Site</a>      
                                 </div>
                                 <div class="level-item">
                                     <button class="button is-primary"><span>Create Route</span><span class=icon is-small><i class="fas fa-plus" ></i></span></button>      
