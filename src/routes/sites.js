@@ -7,6 +7,7 @@ const handleTable = require("./helperFunctions/handleTableFunctions");
 const indexTemplate = require("../views/sites/index.js");
 const addTemplate = require("../views/sites/add");
 const detailTemplate = require("../views/sites/detail");
+const editTemplate = require("../views/sites/edit");
 const {
   checkBoxNumber,
   checkSiteName,
@@ -59,12 +60,12 @@ router.post(
     checkNotes,
     checkCollectionDate
   ],
-  (req, res) => {
+  async (req, res) => {
     const { errors } = validationResult(req);
     if (errors.length > 0) {
       res.send(addTemplate({ errors }));
     } else {
-      sitesRepo.create({
+      await sitesRepo.create({
         boxNumber: req.body.boxNumber,
         route: "",
         name: req.body.siteName,
@@ -139,4 +140,47 @@ router.post(
   }
 );
 
+router.get("/sites/:id/edit", async (req, res) => {
+  const site = await sitesRepo.getOne(req.params.id);
+  res.send(editTemplate({ site }));
+});
+
+router.post(
+  "/sites/:id/edit",
+  [
+    checkBoxNumber,
+    checkSiteName,
+    checkAddressLine1,
+    checkAddressLine2,
+    checkPostCode,
+    checkTown,
+    checkContactName,
+    checkContactNumber,
+    checkNotes
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (errors.length > 0) {
+      const site = await sitesRepo.getOne(req.params.id);
+      return res.send(editTemplate({ site, errors }));
+    } else {
+      await sitesRepo.update(req.params.id, {
+        boxNumber: req.body.boxNumber,
+        name: req.body.siteName,
+        address: {
+          line1: req.body.addressLine1,
+          line2: req.body.addressLine2,
+          town: req.body.town,
+          postcode: req.body.postCode
+        },
+        contact: {
+          name: req.body.contactName,
+          number: req.body.contactNumber
+        },
+        notes: req.body.notes
+      });
+      res.redirect(`/sites/${req.params.id}/detail`);
+    }
+  }
+);
 module.exports = router;

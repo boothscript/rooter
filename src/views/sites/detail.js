@@ -31,7 +31,9 @@ module.exports = ({ site, messages, errors }) => {
             <div class="level-right">
                 <div class="level-item">
                     <div>
-                        <button class="button">Edit Site</button>
+                        <a href="/sites/${
+                          site.id
+                        }/edit" class="button">Edit Site</a>
                     </div>
                 </div>
                 <div class="level-item">
@@ -64,7 +66,7 @@ module.exports = ({ site, messages, errors }) => {
                                 <div>
                                     <p class="heading">Latitude</p>
                                     <p class="title is-6">${
-                                      site.coords.latitude
+                                      site.coords ? site.coords.latitude : ""
                                     }</p>
                                 </div>
                             </div>
@@ -72,7 +74,7 @@ module.exports = ({ site, messages, errors }) => {
                                 <div>
                                     <p class="heading">Longitude</p>
                                     <p class="title is-6">${
-                                      site.coords.longitude
+                                      site.coords ? site.coords.longitude : ""
                                     }</p>
                                 </div>
                             </div>
