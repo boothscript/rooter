@@ -2,3 +2,4 @@ node_modules
 src/csvImport
 data/*
 htmlpad.html
+config.js
