@@ -27,6 +27,7 @@ const {
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  console.log(req.query);
   const sitesData = addCollectionDates(await sitesRepo.getAll());
   const totalNumOfSites = sitesData.length;
   const messages = req.session.messages || [];

@@ -11,21 +11,24 @@ if (selectAllBox) {
 }
 
 // CREATE ROUTE FUNCTIONALITY
-document.querySelector("button.create-route").addEventListener("click", () => {
-  const tableRows = document.querySelectorAll("tr");
-  const selectedRows = Array.from(tableRows)
-    .filter(row => {
-      const select = row.querySelector(".row-select");
-      return select && select.checked;
-    })
-    .map(row => {
-      const select = row.querySelector(".row-select");
-      return select.id;
-    });
-  document.querySelector("#site-list-input").value = selectedRows;
-  const createRouteModal = document.querySelector("#create-route-modal");
-  createRouteModal.classList.add("is-active");
-});
+const createRouteButton = document.querySelector("button.create-route");
+if (createRouteButton) {
+  createRouteButton.addEventListener("click", () => {
+    const tableRows = document.querySelectorAll("tr");
+    const selectedRows = Array.from(tableRows)
+      .filter(row => {
+        const select = row.querySelector(".row-select");
+        return select && select.checked;
+      })
+      .map(row => {
+        const select = row.querySelector(".row-select");
+        return select.id;
+      });
+    document.querySelector("#site-list-input").value = selectedRows;
+    const createRouteModal = document.querySelector("#create-route-modal");
+    createRouteModal.classList.add("is-active");
+  });
+}
 
 // FORM INPUT VALIDATION
 const formFields = document.querySelectorAll("form .field");
@@ -71,6 +74,25 @@ if (addColButton && addColModal) {
   addColModal.querySelector(".cancel").addEventListener("click", e => {
     e.preventDefault();
     addColModal.classList.remove("is-active");
+  });
+}
+
+// SELECT TOWN MODAL TOGGLE
+const townFilterButton = document.querySelector("#town-filter");
+const townFilterModal = document.querySelector("#town-filter-modal");
+
+if (townFilterButton && townFilterModal) {
+  townFilterButton.addEventListener("click", () => {
+    townFilterModal.classList.add("is-active");
+  });
+  townFilterModal
+    .querySelector(".modal-background")
+    .addEventListener("click", () => {
+      townFilterModal.classList.remove("is-active");
+    });
+  townFilterModal.querySelector(".cancel").addEventListener("click", e => {
+    e.preventDefault();
+    townFilterModal.classList.remove("is-active");
   });
 }
 

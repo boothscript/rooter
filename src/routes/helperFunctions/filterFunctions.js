@@ -45,5 +45,9 @@ module.exports = {
   },
   noCollections: site => {
     return !site.lastCollectionDate;
+  },
+  town(site) {
+    // return this.towns.includes(site.address.town);
+    return this.towns.includes(site.address.town);
   }
 };

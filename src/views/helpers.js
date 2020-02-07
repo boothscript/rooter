@@ -52,5 +52,13 @@ module.exports = {
     );
 
     return { thisYearSum, allTimeSum };
+  },
+  getTownList(sitesData) {
+    return sitesData.reduce((resultArr, site) => {
+      if (!resultArr.includes(site.address.town)) {
+        resultArr.push(site.address.town);
+      }
+      return resultArr;
+    }, []);
   }
 };

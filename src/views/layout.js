@@ -39,9 +39,9 @@ module.exports = (content, messages = []) => {
                 </main>
                 <script src="/js/config.js"></script>
             <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-            <script src="leaflet-routing-machine.js"></script>
+            <script src="/js/leaflet-routing-machine.js"></script>
             <script src="/js/app.js"></script>
-            <script src="/js/map.js"></script>
+
             </body>
         </html>
     `;

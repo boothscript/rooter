@@ -7,7 +7,15 @@ module.exports = (sitesData, req) => {
   if (req.query.reset) {
     req.session.sort = null;
     req.session.filter = null;
+    return sitesData;
   }
+  // Filter by Town
+  if (req.query.towns) {
+    req.session.towns = req.query.towns;
+    console.log("query", req.query);
+    sitesData = sitesData.filter(filterFunctions.town, req.query);
+  }
+
   // Sort is selected
   if (req.query.sort) {
     req.session.sort = req.query.sort;
@@ -32,5 +40,6 @@ module.exports = (sitesData, req) => {
       tableData = sitesData.filter(filterFunctions[req.session.filter]);
     }
   }
+
   return tableData || sitesData;
 };

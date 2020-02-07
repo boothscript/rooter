@@ -1,5 +1,7 @@
 const layout = require("../layout");
 
+const { getTownList } = require("../helpers");
+
 module.exports = ({ sitesData, totalNumOfSites, messages }) => {
   const tableRows = sitesData
     .map(site => {
@@ -35,6 +37,18 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
             </tbody>
         </table>
     `;
+  const townList = getTownList(sitesData);
+
+  const townCheckboxes = townList
+    .map(town => {
+      return `
+        <div class="control">
+            <input type="checkbox" name="towns" value="${town}"/><label>${town}</label>
+            <p></p>
+        </div>
+        `;
+    })
+    .join("");
 
   const main = `
             <div>
@@ -59,6 +73,8 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                 </div>
                             </div>
                             <div class="level-right">
+                                <div class="level-right">
+                                    <button class="button is-small" id="town-filter">Filter by Towns</button>
                                 <div class="level-item">
                                     <div class="dropdown is-hoverable">
                                         <div class="dropdown-trigger">
@@ -91,6 +107,8 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                         </div>
                                         <div id="sortby-dropdown" class="dropdown-menu">
                                             <div class="dropdown-content">
+                                            <a class="dropdown-item" href="/?sort=town">Town</a>
+                                                <hr class="dropdown-divider">
                                                 <a class="dropdown-item" href="/?sort=nextSortDesc">Next Collection (desc)</a>
                                                 <a class="dropdown-item" href="/?sort=nextSortAsc">Next Collection (asc)</a>
                                                 <hr class="dropdown-divider">
@@ -136,6 +154,25 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                     </div>
                 </div>
             </div>
+            <div class="modal " id="town-filter-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Select Towns<p>
+                </header>
+                <section class="modal-card-body">
+                    <form method="GET" action="/?filter=town">
+                    <div class="field">
+                        ${townCheckboxes}
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                        <button class="button cancel">Cancel</button>
+                        <input class="button is-primary" type="submit" value="Filter"/>
+                    </form>
+                </footer>
+            </div>
+        </div>
 
             `;
 

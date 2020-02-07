@@ -11,7 +11,7 @@ router.post("/routes/add", async (req, res) => {
     sites: req.body.siteList,
     date: new Date()
   });
-  res.send("done");
+  res.redirect("/routes");
 });
 
 router.get("/routes", async (req, res) => {
