@@ -7,6 +7,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
     .map(site => {
       return `
             <tr>
+                <td class="has-background-${site.status}"></td>
                 <td><input type="checkbox" class="row-select" id="${site.id}" /></td>
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
@@ -22,6 +23,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
         <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
+                    <th></th>
                     <th><input type="checkbox" class="select-all" /></th>
                     <th>Code</th>
                     <th>Name</th>
@@ -73,8 +75,9 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                 </div>
                             </div>
                             <div class="level-right">
-                                <div class="level-right">
+                                <div class="level-item">
                                     <button class="button is-small" id="town-filter">Filter by Towns</button>
+                                </div>
                                 <div class="level-item">
                                     <div class="dropdown is-hoverable">
                                         <div class="dropdown-trigger">

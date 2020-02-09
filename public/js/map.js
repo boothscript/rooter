@@ -1,5 +1,4 @@
 const routeMap = L.map("route-map").setView([51.505, -0.09], 13);
-
 L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
   {
@@ -11,36 +10,46 @@ L.tileLayer(
   }
 ).addTo(routeMap);
 
-L.Routing.control({
-  waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)]
-}).addTo(routeMap);
+calculateRoutes = (start, finish, siteList) => {
+  fetch(
+    `http://127.0.0.1:5000/trip/v1/driving/${start};${siteList.join(
+      ";"
+    )};${finish}?source=first&destination=last&steps=true&geometries=geojson&annotations=true`
+  )
+    .then(response => response.json())
+    .then(jsonData => {
+      console.log(jsonData);
+      L.geoJSON(Object.assign(jsonData.trips[0], { type: "Feature" })).addTo(
+        routeMap
+      );
+      jsonData.waypoints.forEach(waypoint => {
+        const marker = L.marker([
+          waypoint.location[1],
+          waypoint.location[0]
+        ]).addTo(routeMap);
+        marker.bindPopup(waypoint.name);
+      });
+    });
+};
 
-// waypoints: [
-//     {
-//       waypoint_index: 0,
-//       trips_index: 0,
-//       hint:
-//         "8P4Qhln_EIYpAAAAKAAAAEcAAAAIAAAAQqiVQesxwEGtvftBqF-dQCkAAAAoAAAARwAAAAgAAADupQAA6rbb_3tlDQMZt9v_ZmUNAwEALwJsQYYI",
-//       distance: 4.029788915048928,
-//       name: "Church Street",
-//       location: [-2.378006, 51.209595]
-//     },
-//     {
-//       waypoint_index: 1,
-//       trips_index: 0,
-//       hint:
-//         "V70Qhse9EIZSAAAAAAAAAHEGAABCIgAAI0qSQAAAAAD_ordC3r3zQxUAAAAAAAAAnQEAAI8IAADupQAAPnvc_0EhDgN6etz_AyEOAwkA_xNsQYYI",
-//       distance: 15.3185758340668,
-//       name: "",
-//       location: [-2.327746, 51.257665]
-//     },
-//     {
-//       waypoint_index: 2,
-//       trips_index: 0,
-//       hint:
-//         "YsIQhsPCEIYZAAAAEQAAABMAAABTAAAARhnNQOHPKkHVUJdAf1JYQhkAAAARAAAAEwAAAFMAAADupQAAWerc_y6MDgOw6tz_RYwOAwEADxVsQYYI",
-//       distance: 6.588437145697954,
-//       name: "",
-//       location: [-2.299303, 51.285038]
-//     }
-//   ]
+showRoute = (pointA, pointB, travelMethod, map) => {
+  fetch(
+    `http://127.0.0.1:5000/route/v1/${travelMethod}/${pointA};${pointB}?steps=true&geometries=geojson`
+  )
+    .then(response => response.json())
+    .then(jsonData => {
+      jsonData.routes.forEach(route => {
+        L.geoJSON(Object.assign(route, { type: "Feature" })).addTo(map);
+      });
+    });
+};
+
+const home = "-2.452330,51.113029";
+
+const testRoute = [
+  "-2.327393,51.230809",
+  "-2.299216,51.285061",
+  "-2.272599,51.263154"
+];
+
+calculateRoutes(home, home, testRoute);

@@ -55,6 +55,21 @@ module.exports = {
           site.nextCollectionDate.getFullYear()
         ].join(" ");
       }
+
+      // add site.status
+
+      //  create date 3 months ago
+      const date = new Date();
+      date.setMonth(date.getMonth() - 3);
+
+      if (date < site.lastCollectionDate) {
+        site.status = "success";
+      }
+
+      if (new Date() > site.nextCollectionDate) {
+        site.status = "danger";
+      }
+
       return site;
     });
   }

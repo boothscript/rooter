@@ -23,4 +23,7 @@ router.get("/routes/:id/detail", async (req, res) => {
   res.send(detailTemplate({}));
 });
 
+router.get("/map", (req, res) => {
+  res.send(detailTemplate({}));
+});
 module.exports = router;
