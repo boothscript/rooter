@@ -43,13 +43,3 @@ showRoute = (pointA, pointB, travelMethod, map) => {
       });
     });
 };
-
-const home = "-2.452330,51.113029";
-
-const testRoute = [
-  "-2.327393,51.230809",
-  "-2.299216,51.285061",
-  "-2.272599,51.263154"
-];
-
-calculateRoutes(home, home, testRoute);

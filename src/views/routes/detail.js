@@ -1,10 +1,10 @@
-const layout = require("../layout");
+const mapLayout = require("./mapLayout");
 
-module.exports = ({ route, messages = [] }) => {
+module.exports = async ({ route, messages = [] }) => {
   const main = `
         <div id="route-map"></div>
     
     `;
 
-  return layout(main, messages);
+  return await mapLayout(main, route, messages);
 };

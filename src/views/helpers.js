@@ -1,5 +1,7 @@
 const { validationResult } = require("express-validator");
 
+const sitesRepo = require("../Repos/sitesRepo");
+
 module.exports = {
   getErrors: (errors, param) => {
     if (errors) {
@@ -60,5 +62,57 @@ module.exports = {
       }
       return resultArr;
     }, []);
+  },
+  async getCoordList(route) {
+    return await Promise.all(
+      route.sites.map(async siteId => {
+        const site = await sitesRepo.getOne(siteId);
+        if (site.coords) {
+          return `[${site.coords.longitude}, ${site.coords.latitude}]`;
+        }
+      })
+    );
+  },
+  getStartCoords(route) {
+    return [route.start.coords.longitude, route.start.coords.latitude];
+  },
+  getFinishCoords(route) {
+    return [route.finish.coords.longitude, route.finish.coords.latitude];
+  },
+  async getMapView(route) {
+    // create list of coords
+    const coords = await Promise.all(
+      route.sites.map(async siteId => {
+        const site = await sitesRepo.getOne(siteId);
+        if (site.coords) {
+          return [site.coords.latitude, site.coords.longitude];
+        }
+      })
+    );
+    coords.push([route.start.coords.latitude, route.start.coords.longitude]);
+    coords.push([route.finish.coords.latitude, route.finish.coords.longitude]);
+    //  convert coords to floats
+    coords.forEach(coord => {
+      coord[0] = parseFloat(coord[0]);
+      coord[1] = parseFloat(coord[1]);
+    });
+
+    // get average
+    const sum = coords.reduce(
+      (total, coords) => {
+        console.log("total", total);
+        console.log("coords", coords);
+        total[0] += coords[0];
+        total[1] += coords[1];
+        return total;
+      },
+      [0, 0]
+    );
+    const center = [
+      (sum[0] / coords.length).toFixed(6),
+      (sum[1] / coords.length).toFixed(6)
+    ];
+    console.log("center", center);
+    return center;
   }
 };

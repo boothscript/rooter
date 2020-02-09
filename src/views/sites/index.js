@@ -147,6 +147,20 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                             <p class="help is-danger"></p>
                                         </div>
                                     </div>
+                                    <div class="field">
+                                        <label class="label">Start Postcode</label>
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="CM11 2DU" name="startPostcode">
+                                            <p class="help is-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">End Postcode</label>
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="CM11 2DU" name="finishPostcode">
+                                            <p class="help is-danger"></p>
+                                        </div>
+                                    </div>
                             </section>
                             <footer class="modal-card-foot">
                                     <button class="button cancel">Cancel</button>

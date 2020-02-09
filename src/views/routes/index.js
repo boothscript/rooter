@@ -7,9 +7,13 @@ module.exports = ({ routes, messages = [] }) => {
       return `
             <tr>
                 <td>${route.name}</td>
+                <td>${route.start.postcode.toUpperCase()}</td>
+                <td>${route.finish.postcode.toUpperCase()}</td>
                 <td>${route.sites.length}</td>
                 <td>${displayDate(new Date(route.date))}</td>
-                <td><button class="button is-small">Veiw</button></td>
+                <td><a href="/routes/${
+                  route.id
+                }/detail" class="button is-small">Veiw</a></td>
             </tr>
 
         `;
@@ -21,6 +25,8 @@ module.exports = ({ routes, messages = [] }) => {
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Start</th>
+                    <th>Finish</th>
                     <th>Sites</th>
                     <th>Date Created</th>
                     <th></th>

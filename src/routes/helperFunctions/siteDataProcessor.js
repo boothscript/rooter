@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const monthToString = n => {
   const monthsShort = [
     "Jan",
@@ -72,5 +74,22 @@ module.exports = {
 
       return site;
     });
+  },
+  getCoords: postcode => {
+    console.log("in get coords");
+    return fetch(
+      `http://api.getthedata.com/postcode/${postcode.replace(" ", "")}`
+    )
+      .then(response => response.json())
+      .then(jsonData => {
+        if (jsonData.status === "match") {
+          return {
+            latitude: jsonData.data.latitude,
+            longitude: jsonData.data.longitude
+          };
+        } else {
+          return null;
+        }
+      });
   }
 };
