@@ -1,4 +1,5 @@
 const mapLayout = require("./mapLayout");
+const { convertDistance, convertTime } = require("../helpers");
 
 module.exports = ({ trip, route, mapView, messages = [] }) => {
   const waypoints = [];
@@ -20,17 +21,11 @@ module.exports = ({ trip, route, mapView, messages = [] }) => {
     return a.index > b.index ? 1 : -1;
   });
   console.log(waypoints);
-  const convertTime = time => {
-    const totalmins = time / 60;
-    const hours = Math.floor(totalmins / 60);
-    const mins = Math.floor((totalmins / 60 - hours) * 60);
-    return `<p class="level-item has-text-centered"><strong class="is-size-5">${hours}</strong>h&nbsp<strong class="is-size-5">${mins}</strong>m</p>`;
-  };
-  const convertDistance = distance => {
-    return `<p class="level-item has-text-centered"><strong class="is-size-5">${(
-      distance / 1609
-    ).toFixed(1)}</strong>miles</p>`;
-  };
+
+  const { hours, mins } = convertTime(trip.trips[0].duration);
+  const { miles } = convertDistance(trip.trips[0].distance);
+  const totalTime = `<p class="level-item has-text-centered"><strong class="is-size-5">${hours}</strong>h&nbsp<strong class="is-size-5">${mins}</strong>m</p>`;
+  const totalDistance = `<p class="level-item has-text-centered"><strong class="is-size-5">${miles}</strong>miles</p>`;
 
   const main = `
         <div class="columns">
@@ -44,8 +39,8 @@ module.exports = ({ trip, route, mapView, messages = [] }) => {
               
               ${waypoints.map(waypoint => waypoint.html).join("")}
               <div class="panel-block panel-level">
-                    ${convertTime(trip.trips[0].duration)} 
-                    ${convertDistance(trip.trips[0].distance)}
+                    ${totalTime} 
+                    ${totalDistance}
               </div>
             </div>
           </div>

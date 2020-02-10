@@ -114,5 +114,15 @@ module.exports = {
     ];
     console.log("center", center);
     return center;
+  },
+  convertTime: time => {
+    const totalmins = time / 60;
+    const hours = Math.floor(totalmins / 60);
+    const mins = Math.floor((totalmins / 60 - hours) * 60);
+    return { hours, mins };
+  },
+  convertDistance: distance => {
+    console.log(distance);
+    return { miles: (distance / 1609).toFixed(1) };
   }
 };

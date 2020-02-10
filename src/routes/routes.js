@@ -6,6 +6,7 @@ const sitesRepo = require("../Repos/sitesRepo");
 const indexTemplate = require("../views/routes/index");
 const detailTemplate = require("../views/routes/detail");
 
+const { extractCoords } = require("./helperFunctions/routeFunctions");
 const { getCoords } = require("./helperFunctions/siteDataProcessor");
 const { getMapView } = require("../views/helpers");
 const router = express.Router();
@@ -37,41 +38,21 @@ router.get("/routes", async (req, res) => {
 router.get("/routes/:id/detail", async (req, res) => {
   const route = await routesRepo.getOne(req.params.id);
 
-  // get siteList from route
-  const startCoords = [
-    route.start.coords.longitude,
-    route.start.coords.latitude
-  ];
-  const finishCoords = [
-    route.finish.coords.longitude,
-    route.finish.coords.latitude
-  ];
-  const siteList = [route.start];
-  const siteCoordsList = await Promise.all(
-    route.sites.map(async siteId => {
-      const site = await sitesRepo.getOne(siteId);
-      siteList.push(site);
-      if (site.coords) {
-        return `${site.coords.longitude},${site.coords.latitude}`;
-      }
-    })
-  );
-  siteList.push(route.finish);
-  siteList.forEach(site => {
-    console.log(site.name || site.postcode);
-  });
   const mapView = await getMapView(route);
 
-  // generate routing data with fetch
+  const {
+    startCoords,
+    finishCoords,
+    siteCoordsList,
+    siteList
+  } = await extractCoords(route);
+
   const trip = await calculateTrip(startCoords, finishCoords, siteCoordsList);
 
   // add site objects to trip data
   trip.waypoints.forEach((waypoint, index) => {
     Object.assign(waypoint, { site: siteList[index] });
   });
-
-  // generate map js
-  // generate html (in detail template)
 
   res.send(detailTemplate({ trip, route, mapView }));
 });
