@@ -1,4 +1,8 @@
 #route-map {
-  height: 70vh;
-  width: 80vw;
+  height: 80vh;
+}
+
+.panel-level {
+  display: flex;
+  justify-content: space-around;
 }

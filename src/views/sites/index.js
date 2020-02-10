@@ -8,13 +8,18 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
       return `
             <tr>
                 <td class="has-background-${site.status}"></td>
-                <td><input type="checkbox" class="row-select" id="${site.id}" /></td>
+                <td><input type="checkbox" class="row-select" id="${
+                  site.id
+                }" /></td>
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
                 <td>${site.address.town}</td>
+                <td>${site.coords || "n"}
                 <td> ${site.lastCollectionString}</td>
                 <td> ${site.nextCollectionString} </td>
-                <td><a href="/sites/${site.id}/detail" class="button is-small is-secondary">View</a></td>
+                <td><a href="/sites/${
+                  site.id
+                }/detail" class="button is-small is-secondary">View</a></td>
             </tr>
         `;
     })
@@ -28,6 +33,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                     <th>Code</th>
                     <th>Name</th>
                     <th>Town</th>
+                    <th>Coords</th>
                     <th>Last</th>
                     <th><abbr>Next</abbr></th>
                     <th></th>
