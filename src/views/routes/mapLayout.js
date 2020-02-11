@@ -5,7 +5,7 @@ const {
   getFinishCoords
 } = require("../helpers");
 
-module.exports = (content, trip, mapView, messages) => {
+module.exports = (content, route, mapView, messages) => {
   // get map view
 
   console.log(mapView);
@@ -59,15 +59,16 @@ module.exports = (content, trip, mapView, messages) => {
           <script>
               const markers = {}
               routeMap.setView([${mapView}], 10)
-              const trip = ${JSON.stringify(trip)}
-              L.geoJSON(Object.assign(trip.trips[0], { type: "Feature" })).addTo(routeMap);
-              trip.waypoints.forEach(waypoint => {
-                  markers[waypoint.site.id || "home"] = L.marker([
+              const trip = ${JSON.stringify(route.routeData)}
+              const waypoints = ${JSON.stringify(route.waypoints)}
+              L.geoJSON(Object.assign(trip, { type: "Feature" })).addTo(routeMap);
+              waypoints.forEach(waypoint => {
+                  markers[waypoint.siteId] = L.marker([
                       waypoint.location[1],
                       waypoint.location[0]
                   ], {opacity:0.5}).addTo(routeMap);
               });
-              console.log(trip)
+              
 
               const waypointEls = document.querySelectorAll('.waypoint')
               for (let el of waypointEls){

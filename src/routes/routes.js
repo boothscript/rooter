@@ -14,20 +14,24 @@ const router = express.Router();
 router.post("/routes/add", async (req, res) => {
   const start = {
     postcode: req.body.startPostcode,
-    coords: await getCoords(req.body.startPostcode)
+    coords: await getCoords(req.body.startPostcode),
+    icon: "car-alt"
   };
   const finish = {
     postcode: req.body.finishPostcode,
-    coords: await getCoords(req.body.finishPostcode)
+    coords: await getCoords(req.body.finishPostcode),
+    icon: "flag-checkered"
   };
-  await routesRepo.create({
+  route = await routesRepo.create({
     name: req.body.routeName,
     sites: req.body.siteList.split(","),
     start,
     finish,
     date: new Date()
   });
+  await routesRepo.getTrip(route.id);
   res.redirect("/routes");
+  console.log(await routesRepo.getOne(route.id));
 });
 
 router.get("/routes", async (req, res) => {
@@ -40,71 +44,10 @@ router.get("/routes/:id/detail", async (req, res) => {
 
   const mapView = await getMapView(route);
 
-  const {
-    startCoords,
-    finishCoords,
-    siteCoordsList,
-    siteList
-  } = await extractCoords(route);
-
-  const trip = await calculateTrip(startCoords, finishCoords, siteCoordsList);
-
-  // add site objects to trip data
-  trip.waypoints.forEach((waypoint, index) => {
-    Object.assign(waypoint, { site: siteList[index] });
-  });
-
-  res.send(detailTemplate({ trip, route, mapView }));
+  res.send(detailTemplate({ route, mapView }));
 });
 
 router.get("/map", (req, res) => {
   res.send(detailTemplate({}));
 });
 module.exports = router;
-
-const calculateTrip = (start, finish, siteList) => {
-  return fetch(
-    `http://127.0.0.1:5000/trip/v1/driving/${start};${siteList.join(
-      ";"
-    )};${finish}?source=first&destination=last&steps=true&geometries=geojson&annotations=true`
-  ).then(response => response.json());
-};
-
-// const calculateTrip = (start, finish, siteList) => {
-//   fetch(
-//     `http://127.0.0.1:5000/trip/v1/driving/${start};${siteList.join(
-//       ";"
-//     )};${finish}?source=first&destination=last&steps=true&geometries=geojson&annotations=true`
-//   )
-//     .then(response => response.json())
-//     .then(jsonData => {
-//       console.log(jsonData);
-//       L.geoJSON(Object.assign(jsonData.trips[0], { type: "Feature" })).addTo(
-//         routeMap
-//       );
-//       jsonData.waypoints.forEach(waypoint => {
-//         const marker = L.marker([
-//           waypoint.location[1],
-//           waypoint.location[0]
-//         ]).addTo(routeMap);
-//         marker.bindPopup(waypoint.name);
-//       });
-//     });
-// };
-
-// async getCoordList(route) {
-//     return await Promise.all(
-//       route.sites.map(async siteId => {
-//         const site = await sitesRepo.getOne(siteId);
-//         if (site.coords) {
-//           return `[${site.coords.longitude}, ${site.coords.latitude}]`;
-//         }
-//       })
-//     );
-//   },
-//   getStartCoords(route) {
-//     return [route.start.coords.longitude, route.start.coords.latitude];
-//   },
-//   getFinishCoords(route) {
-//     return [route.finish.coords.longitude, route.finish.coords.latitude];
-//   },

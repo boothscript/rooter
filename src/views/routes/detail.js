@@ -1,29 +1,21 @@
 const mapLayout = require("./mapLayout");
 const { convertDistance, convertTime } = require("../helpers");
 
-module.exports = ({ trip, route, mapView, messages = [] }) => {
-  const waypoints = [];
-  trip.waypoints.forEach(waypoint => {
-    let txt;
-    if (waypoint.site.postcode) {
-      txt = waypoint.site.postcode;
-    } else {
-      txt = waypoint.site.name;
-    }
-    waypoints.push({
-      index: waypoint.waypoint_index,
-      html: `<p id="${waypoint.site.id ||
-        "home"}" class="panel-block waypoint">${txt}</p>`
-    });
+module.exports = ({ route, mapView, messages = [] }) => {
+  // create route pannel
+  const sortedWaypoints = route.waypoints.sort((a, b) => {
+    return a.waypoint_index > b.waypoint_index ? 1 : -1;
+  });
+  console.log(sortedWaypoints);
+  const waypointsHTML = [];
+  sortedWaypoints.forEach(waypoint => {
+    waypointsHTML.push(`<p id="${waypoint.siteId}" class="panel-block waypoint"><span class="panel-icon">
+        <i class="fas fa-${waypoint.icon}"></i></span>${waypoint.name}</p>`);
   });
 
-  waypoints.sort((a, b) => {
-    return a.index > b.index ? 1 : -1;
-  });
-  console.log(waypoints);
-
-  const { hours, mins } = convertTime(trip.trips[0].duration);
-  const { miles } = convertDistance(trip.trips[0].distance);
+  // route pannel footer calculations
+  const { hours, mins } = convertTime(route.duration);
+  const { miles } = convertDistance(route.distance);
   const totalTime = `<p class="level-item has-text-centered"><strong class="is-size-5">${hours}</strong>h&nbsp<strong class="is-size-5">${mins}</strong>m</p>`;
   const totalDistance = `<p class="level-item has-text-centered"><strong class="is-size-5">${miles}</strong>miles</p>`;
 
@@ -33,14 +25,12 @@ module.exports = ({ trip, route, mapView, messages = [] }) => {
             <div id="route-map"></div>
           </div>
           <div class="column">
-
             <div class="panel is-primary">
               <p class="panel-heading">${route.name}</p>
-              
-              ${waypoints.map(waypoint => waypoint.html).join("")}
+              ${waypointsHTML.join("")}
               <div class="panel-block panel-level">
-                    ${totalTime} 
-                    ${totalDistance}
+                ${totalTime}
+                ${totalDistance}
               </div>
             </div>
           </div>
@@ -49,5 +39,5 @@ module.exports = ({ trip, route, mapView, messages = [] }) => {
     `;
 
   // can add js in script tag beofre it goes to mapLayout instead of ending route (must run after everythong else has loaded)
-  return mapLayout(main, trip, mapView, messages);
+  return mapLayout(main, route, mapView, messages);
 };

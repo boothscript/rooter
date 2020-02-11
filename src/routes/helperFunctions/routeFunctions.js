@@ -15,6 +15,7 @@ module.exports = {
     const siteCoordsList = await Promise.all(
       route.sites.map(async siteId => {
         const site = await sitesRepo.getOne(siteId);
+        Object.assign(site, { icon: "map-marker" });
         siteList.push(site);
         if (site.coords) {
           return `${site.coords.longitude},${site.coords.latitude}`;
