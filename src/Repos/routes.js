@@ -7,8 +7,8 @@ class routesRepo extends Repo {
   // fetch trip
   // fetch routes
   //
-  //
-  getTrip = async routeId => {
+  //;
+  async getTrip(routeId) {
     const route = await this.getOne(routeId);
 
     // gather coords for api call
@@ -57,7 +57,7 @@ class routesRepo extends Repo {
     const { duration, distance } = tripData.trips[0];
 
     await this.update(route.id, { waypoints, duration, distance, routeData });
-  };
+  }
 }
 
 module.exports = new routesRepo("data/routes.json");
