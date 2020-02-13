@@ -82,7 +82,7 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                             </div>
                             <div class="level-right">
                                 <div class="level-item">
-                                    <button class="button is-small" id="town-filter">Filter by Towns</button>
+                                    <button class="button is-small modal-button" id="town-filter">Filter by Towns</button>
                                 </div>
                                 <div class="level-item">
                                     <div class="dropdown is-hoverable">

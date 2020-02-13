@@ -25,8 +25,7 @@ if (createRouteButton) {
         return select.id;
       });
     document.querySelector("#site-list-input").value = selectedRows;
-    const createRouteModal = document.querySelector("#create-route-modal");
-    createRouteModal.classList.add("is-active");
+    document.querySelector("#create-route-modal").classList.add("is-active");
   });
 }
 
@@ -41,61 +40,6 @@ if (formFields) {
   });
 }
 
-//  DELETE SITE MODAL TOGGLE
-const delButton = document.querySelector("#del-button");
-const delModal = document.querySelector("#del-modal");
-
-if (delButton && delModal) {
-  delButton.addEventListener("click", () => {
-    delModal.classList.add("is-active");
-  });
-  delModal.querySelector(".modal-background").addEventListener("click", () => {
-    delModal.classList.remove("is-active");
-  });
-  delModal.querySelector(".cancel").addEventListener("click", e => {
-    e.preventDefault();
-    delModal.classList.remove("is-active");
-  });
-}
-
-// ADD COLLECTION MODAL TOGGLE
-const addColButton = document.querySelector("#add-col-button");
-const addColModal = document.querySelector("#add-col-modal");
-
-if (addColButton && addColModal) {
-  addColButton.addEventListener("click", () => {
-    addColModal.classList.add("is-active");
-  });
-  addColModal
-    .querySelector(".modal-background")
-    .addEventListener("click", () => {
-      addColModal.classList.remove("is-active");
-    });
-  addColModal.querySelector(".cancel").addEventListener("click", e => {
-    e.preventDefault();
-    addColModal.classList.remove("is-active");
-  });
-}
-
-// SELECT TOWN MODAL TOGGLE
-const townFilterButton = document.querySelector("#town-filter");
-const townFilterModal = document.querySelector("#town-filter-modal");
-
-if (townFilterButton && townFilterModal) {
-  townFilterButton.addEventListener("click", () => {
-    townFilterModal.classList.add("is-active");
-  });
-  townFilterModal
-    .querySelector(".modal-background")
-    .addEventListener("click", () => {
-      townFilterModal.classList.remove("is-active");
-    });
-  townFilterModal.querySelector(".cancel").addEventListener("click", e => {
-    e.preventDefault();
-    townFilterModal.classList.remove("is-active");
-  });
-}
-
 // CLOSE ALERT MESSAGES
 const message = document.querySelector(".message");
 if (message) {
@@ -106,4 +50,42 @@ if (message) {
   setTimeout(() => {
     message.classList.add("transition");
   }, 3500);
+}
+
+// MODAL JS
+const modalButtons = document.querySelectorAll(".modal-button");
+if (modalButtons) {
+  modalButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      console.log(e.target.id);
+      document
+        .querySelector(`#${e.target.id}-modal`)
+        .classList.add("is-active");
+    });
+  });
+}
+
+const modals = document.querySelectorAll(".modal");
+if (modals) {
+  modals.forEach(modal => {
+    modal.querySelector(".modal-background").addEventListener("click", e => {
+      modal.classList.remove("is-active");
+    });
+    modal.querySelector(".cancel").addEventListener("click", e => {
+      e.preventDefault();
+      modal.classList.remove("is-active");
+    });
+  });
+}
+
+const addCollectionCommentButtons = document.querySelectorAll("#add-comment");
+if (addCollectionCommentButtons) {
+  addCollectionCommentButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      console.log(e.target.dataset.route);
+      document.querySelector(
+        "#add-comment-modal form"
+      ).action = `/sites/${e.target.parentNode.id}/addcomment?route=${e.target.dataset.route}`;
+    });
+  });
 }

@@ -8,6 +8,7 @@ const indexTemplate = require("../views/sites/index.js");
 const addTemplate = require("../views/sites/add");
 const detailTemplate = require("../views/sites/detail");
 const editTemplate = require("../views/sites/edit");
+const routeMobileTemplate = require("../views/routes/mobile");
 const {
   checkBoxNumber,
   checkSiteName,
@@ -184,4 +185,19 @@ router.post(
     }
   }
 );
+
+router.post("/sites/:id/addcomment", async (req, res) => {
+  const site = await sitesRepo.getOne(req.params.id);
+  console.log(site);
+  const collection = {
+    id: sitesRepo.randomId(),
+    date: new Date(),
+    comment: req.body.comment,
+    amount: null
+  };
+  site.history.collections.push(collection);
+  await sitesRepo.update(req.params.id, { history: site.history });
+
+  res.redirect(`/routes/${req.query.route}/mobile`);
+});
 module.exports = router;

@@ -5,6 +5,7 @@ const routesRepo = require("../Repos/routes");
 const sitesRepo = require("../Repos/sitesRepo");
 const indexTemplate = require("../views/routes/index");
 const detailTemplate = require("../views/routes/detail");
+const mobileTemplate = require("../views/routes/mobile");
 
 const { extractCoords } = require("./helperFunctions/routeFunctions");
 const { getCoords } = require("./helperFunctions/siteDataProcessor");
@@ -45,6 +46,11 @@ router.get("/routes/:id/detail", async (req, res) => {
   const mapView = await getMapView(route);
 
   res.send(detailTemplate({ route, mapView }));
+});
+
+router.get("/routes/:id/mobile", async (req, res) => {
+  const route = await routesRepo.getOne(req.params.id);
+  res.send(mobileTemplate({ route }));
 });
 
 router.get("/map", (req, res) => {

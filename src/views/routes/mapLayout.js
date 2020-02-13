@@ -1,10 +1,3 @@
-const {
-  getMapView,
-  getCoordList,
-  getStartCoords,
-  getFinishCoords
-} = require("../helpers");
-
 module.exports = (content, route, mapView, messages) => {
   // get map view
 
@@ -34,7 +27,7 @@ module.exports = (content, route, mapView, messages) => {
           <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
           <link rel="stylesheet" href="/css/leaflet-routing-machine.css" />
           <link rel="stylesheet" href="/css/layout.css"/>
-          <link rel="stylesheet" href="/css/map.css"/>
+          <link rel="stylesheet" href="/css/main.css" />
           </head>
           <body>
 

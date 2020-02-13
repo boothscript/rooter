@@ -24,7 +24,7 @@ module.exports = ({ site, messages, errors }) => {
             <div class="level-left">
                 <div class="level-item">
                     <div>
-                        <button class="button is-primary" id="add-col-button">Add Collection</button>
+                        <button class="button is-primary modal-button" id="add-col">Add Collection</button>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@ module.exports = ({ site, messages, errors }) => {
                 </div>
                 <div class="level-item">
                     <div>
-                        <button class="button is-danger" id="del-button">Delete</button>
+                        <button class="button is-danger modal-button" id="del">Delete</button>
                     </div>
                 </div>
             </div>

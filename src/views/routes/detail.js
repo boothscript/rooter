@@ -26,7 +26,9 @@ module.exports = ({ route, mapView, messages = [] }) => {
           </div>
           <div class="column">
             <div class="panel is-primary">
-              <p class="panel-heading">${route.name}</p>
+              <p class="panel-heading">${route.name}<a href="/routes/${
+    route.id
+  }/mobile" class="pannel-mobile-link"><i class="fas fa-mobile"></i></a></p>
               ${waypointsHTML.join("")}
               <div class="panel-block panel-level">
                 ${totalTime}
