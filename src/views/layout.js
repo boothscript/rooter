@@ -29,6 +29,12 @@ module.exports = (content, messages = []) => {
                                 <b>ROOTER</b>
                             </a>
                         </div>
+                        <div class="navbar-menu">
+                            <div class="navbar-end">
+                                <a href="/" class="navbar-item">Sites</a>
+                                <a href="/routes" class="navbar-item">Routes</a>
+                            </div>
+                        </div>
                     </nav>
                 </header>
                 <main class="section has-background-light">
