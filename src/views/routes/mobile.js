@@ -12,12 +12,35 @@ module.exports = ({ route }) => {
   const sortedWaypoints = route.waypoints.sort((a, b) => {
     return a.waypoint_index > b.waypoint_index ? 1 : -1;
   });
-  console.log(sortedWaypoints);
+
   const waypointsHTML = [];
   sortedWaypoints.forEach(waypoint => {
-    waypointsHTML.push(`<div id="${waypoint.siteId}" class="panel-block waypoint is-flex"><span class="panel-icon">
-        <i class="fas fa-${waypoint.icon}"></i></span>${waypoint.name}<button class="waypoint-button button is-small modal-button" id="add-comment" data-route="${route.id}">Add Comment</button><button class="button is-dark is-small"><i class="fas fa-directions"></i>
-        </button><button class="waypoint-buttons button is-small is-primary"><i class="fas fa-check"></i></button></div>`);
+    console.log(sortedWaypoints.length);
+    console.log(waypoint.waypoint_index);
+    waypointsHTML.push(`<div id="${
+      waypoint.siteId
+    }" class="panel-block waypoint is-flex"><span class="panel-icon">
+        <i class="fas fa-${waypoint.icon}"></i></span>${waypoint.name}
+    ${
+      waypoint.waypoint_index === 0
+        ? "</div>"
+        : `
+    
+    <button class="waypoint-button button is-small modal-button ${
+      waypoint.waypoint_index === sortedWaypoints.length - 1
+        ? "is-invisible"
+        : ""
+    }" id="add-comment" data-route="${
+            route.id
+          }">Add Comment</button><button class="button is-dark is-small"><i class="fas fa-directions"></i>
+        </button><form class="waypoint-form" method="POST" action="/routes/${
+          route.id
+        }/toggleCheck?waypoint=${
+            waypoint.waypoint_index
+          }"><button class="waypoint-check button is-small ${
+            waypoint.checked ? "is-primary" : "is-light"
+          }"><i class="fas fa-check"></i></button></form></div>`
+    }`);
   });
 
   main = `

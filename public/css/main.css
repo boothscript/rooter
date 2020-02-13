@@ -23,3 +23,7 @@
 .waypoint {
   justify-items: center;
 }
+
+.waypoint-form {
+  margin-block-end: 0;
+}

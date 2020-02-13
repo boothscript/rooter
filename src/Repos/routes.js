@@ -48,7 +48,8 @@ class routesRepo extends Repo {
         postcode: siteList[index].postcode || siteList[index].address.postcode,
         location: waypoint.location,
         waypoint_index: waypoint.waypoint_index,
-        icon: siteList[index].icon
+        icon: siteList[index].icon,
+        checked: false
       };
     });
     const routeData = tripData.trips[0];

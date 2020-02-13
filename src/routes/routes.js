@@ -56,4 +56,16 @@ router.get("/routes/:id/mobile", async (req, res) => {
 router.get("/map", (req, res) => {
   res.send(detailTemplate({}));
 });
+
+router.post("/routes/:id/toggleCheck", async (req, res) => {
+  const route = await routesRepo.getOne(req.params.id);
+  const targetWaypoint = route.waypoints.find(
+    point => point.waypoint_index == req.query.waypoint
+  );
+
+  targetWaypoint.checked = !targetWaypoint.checked;
+  await routesRepo.update(req.params.id, { waypoints: route.waypoints });
+
+  res.redirect(`/routes/${req.params.id}/mobile`);
+});
 module.exports = router;
