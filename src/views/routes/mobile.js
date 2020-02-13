@@ -32,8 +32,11 @@ module.exports = ({ route }) => {
         : ""
     }" id="add-comment" data-route="${
             route.id
-          }">Add Comment</button><button class="button is-dark is-small"><i class="fas fa-directions"></i>
-        </button><form class="waypoint-form" method="POST" action="/routes/${
+          }">Add Comment</button><a href="https://www.google.com/maps/dir/?api=1&destination=${waypoint.postcode.replace(
+            " ",
+            ""
+          )}&travelmode=driving&dir_action=navigate" class="button is-dark is-small"><i class="fas fa-directions"></i>
+        </a><form class="waypoint-form" method="POST" action="/routes/${
           route.id
         }/toggleCheck?waypoint=${
             waypoint.waypoint_index
