@@ -35,12 +35,19 @@ class routesRepo extends Repo {
 
     // call trip api
     const tripData = await fetch(
-      `http://127.0.0.1:5000/trip/v1/driving/${startCoords};${siteCoordsList.join(
+      `http://osrm:5000/trip/v1/driving/${startCoords};${siteCoordsList.join(
         ";"
       )};${finishCoords}?source=first&destination=last&steps=true&geometries=geojson&annotations=true`
-    ).then(response => response.json());
+    )
+      .then(response => response.json())
+      .catch(err => {
+        console.log("error with api");
+        console.log(err);
+      });
 
     //   create waypoint object
+    console.log(tripData);
+    console.log("waypoints", tripData.waypoints);
     const waypoints = tripData.waypoints.map((waypoint, index) => {
       return {
         siteId: siteList[index].id || this.randomId(),

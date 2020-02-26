@@ -78,6 +78,40 @@ if (modals) {
   });
 }
 
+const editCollectionRowButtons = document.querySelectorAll("#edit-col");
+if (editCollectionRowButtons) {
+  editCollectionRowButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      const modalForm = document.querySelector("#edit-col-modal form");
+      modalForm.action = modalForm.action + `${e.target.dataset.id}/edit`;
+
+      const inputs = modalForm.querySelectorAll("input");
+      inputs.forEach(input => {
+        console.log(input);
+        console.log(e.target.parentNode.parentNode);
+        const formField = e.target.parentNode.parentNode.querySelector(
+          `td.${input.name.toLocaleLowerCase()}`
+        );
+        console.log(`td.${input.name.toLocaleLowerCase()}`);
+        console.log(formField);
+        if (input.name === "collectionDate") {
+          // const dateValue = new Date(formField.innerHTML);
+          // console.log(
+          //   "date",
+          //   `${dateValue.getFullYear()}-${dateValue.getMonth() +
+          //     1}-${dateValue.getDate()}`
+          // );
+          // console.log(input);
+          // input.valueAsDate = dateValue;
+          console.log(input);
+        } else {
+        }
+        input.setAttribute("value", formField.innerHTML);
+      });
+    });
+  });
+}
+
 const addCollectionCommentButtons = document.querySelectorAll("#add-comment");
 if (addCollectionCommentButtons) {
   addCollectionCommentButtons.forEach(button => {

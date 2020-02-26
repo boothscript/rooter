@@ -1,6 +1,6 @@
 const layout = require("../layout");
 
-const { getTownList } = require("../helpers");
+const { getTownList, showWarning } = require("../helpers");
 
 module.exports = ({ sitesData, totalNumOfSites, messages }) => {
   const tableRows = sitesData
@@ -8,13 +8,17 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
       return `
             <tr>
                 <td class="has-background-${site.status}"></td>
+                <td>${
+                  showWarning(site)
+                    ? '<span><i class="fas fa-exclamation-triangle"></i></span>'
+                    : ""
+                }
                 <td><input type="checkbox" class="row-select" id="${
                   site.id
                 }" /></td>
                 <td>${site.boxNumber}</td>
                 <td>${site.name}</td>
                 <td>${site.address.town}</td>
-                <td>${site.coords || "n"}
                 <td> ${site.lastCollectionString}</td>
                 <td> ${site.nextCollectionString} </td>
                 <td><a href="/sites/${
@@ -29,11 +33,11 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
             <thead>
                 <tr>
                     <th></th>
+                    <th></th>
                     <th><input type="checkbox" class="select-all" /></th>
                     <th>Code</th>
                     <th>Name</th>
                     <th>Town</th>
-                    <th>Coords</th>
                     <th>Last</th>
                     <th><abbr>Next</abbr></th>
                     <th></th>

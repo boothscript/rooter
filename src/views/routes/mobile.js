@@ -25,8 +25,17 @@ module.exports = ({ route }) => {
       waypoint.waypoint_index === 0
         ? "</div>"
         : `
-    
-    <button class="waypoint-button button is-small modal-button ${
+        <a class="waypoint-button button is-small ${
+          waypoint.waypoint_index === sortedWaypoints.length - 1
+            ? "is-invisible"
+            : ""
+        }" href="/sites/${waypoint.siteId}/detail">View</a>
+    <a class=" button is-small ${
+      waypoint.waypoint_index === sortedWaypoints.length - 1
+        ? "is-invisible"
+        : ""
+    }" href="/sites/${waypoint.siteId}/edit">Edit</a>
+    <button class=" button is-small modal-button ${
       waypoint.waypoint_index === sortedWaypoints.length - 1
         ? "is-invisible"
         : ""
@@ -45,7 +54,6 @@ module.exports = ({ route }) => {
           }"><i class="fas fa-check"></i></button></form></div>`
     }`);
   });
-
   main = `
   <div class="panel is-primary">
     <p class="panel-heading">${route.name}<a href="/routes/${

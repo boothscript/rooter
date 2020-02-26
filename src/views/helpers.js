@@ -124,5 +124,13 @@ module.exports = {
   convertDistance: distance => {
     console.log(distance);
     return { miles: (distance / 1609).toFixed(1) };
+  },
+  showWarning: site => {
+    return (
+      site.boxNumber === "" ||
+      site.coords === {} ||
+      site.postcode === "" ||
+      site.collectionFrequency === ""
+    );
   }
 };

@@ -13,16 +13,27 @@ const { getMapView } = require("../views/helpers");
 const router = express.Router();
 
 router.post("/routes/add", async (req, res) => {
-  const start = {
-    postcode: req.body.startPostcode,
-    coords: await getCoords(req.body.startPostcode),
-    icon: "car-alt"
-  };
-  const finish = {
-    postcode: req.body.finishPostcode,
-    coords: await getCoords(req.body.finishPostcode),
-    icon: "flag-checkered"
-  };
+  let start = {};
+  let finish = {};
+  try {
+    start = {
+      postcode: req.body.startPostcode,
+      coords: await getCoords(req.body.startPostcode),
+      icon: "car-alt"
+    };
+  } catch (err) {
+    console.log("start postcode issue", err);
+  }
+  try {
+    finish = {
+      postcode: req.body.finishPostcode,
+      coords: await getCoords(req.body.finishPostcode),
+      icon: "flag-checkered"
+    };
+  } catch (err) {
+    console.log("finish postcode issue", err);
+  }
+
   route = await routesRepo.create({
     name: req.body.routeName,
     sites: req.body.siteList.split(","),

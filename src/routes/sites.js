@@ -128,7 +128,7 @@ router.post(
       const site = await sitesRepo.getOne(req.params.id);
       // add collection dates
       siteWithColDates = addCollectionDates([site]);
-      res.send(detailTemplate({ site: siteWithColDates[0], errors }));
+      return res.send(detailTemplate({ site: siteWithColDates[0], errors }));
     }
     const record = await sitesRepo.getOne(req.params.id);
     record.history.collections.push({
@@ -146,6 +146,19 @@ router.get("/sites/:id/edit", async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
   res.send(editTemplate({ site }));
 });
+
+router.post(
+  "/sites/:id/:collectionId/edit",
+  [checkCollectionDate, checkComments, checkAmount],
+  async (req, res) => {
+    await sitesRepo.updateCollection(
+      req.params.id,
+      req.params.collectionId,
+      req.body
+    );
+    res.redirect(`/sites/${req.params.id}/detail`);
+  }
+);
 
 router.post(
   "/sites/:id/edit",

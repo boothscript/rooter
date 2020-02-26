@@ -9,12 +9,15 @@ module.exports = ({ site, messages, errors }) => {
 
       return `
         <tr>
-            <td>${date}</td>
-            <td>${row.comment}</td>
-            <td>${new Intl.NumberFormat("en-GB", {
+            <td class="collectiondate">${date}</td>
+            <td class="collectioncomment">${row.comment}</td>
+            <td class="amount">${new Intl.NumberFormat("en-GB", {
               style: "currency",
               currency: "GBP"
             }).format(row.amount)}</td>
+            <td><button class="is-small modal-button" id="edit-col" data-id="${
+              row.id
+            }">Edit</button></td>
         </tr>
     `;
     })
@@ -177,6 +180,7 @@ module.exports = ({ site, messages, errors }) => {
                                 <th>Date</th>
                                 <th>Comments</th>
                                 <th>Amount</th>
+                                <th></th>
                             </thead>
                             <tbody>
                                 ${tableBody}
@@ -213,6 +217,52 @@ module.exports = ({ site, messages, errors }) => {
                 </header>
                 <section class="modal-card-body">
                     <form method="POST" action="/sites/${site.id}/collection">
+                    <div class="field">
+                        <label class="label">Date</label>
+                        <div class="control">
+                        <input class="input" type="date" name="collectionDate">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "collectionDate"
+                        )}</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Comment</label>
+                        <div class="control">
+                        <input class="input" type="text" placeholder="Collection" name="collectionComment">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "collectionComment"
+                        )}</p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Amount</label>
+                        <div class="control">
+                        <input class="input" type="currency" placeholder="£100.00" name="amount">
+                        <p class="help is-danger">${getErrors(
+                          errors,
+                          "amount"
+                        )}</p>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                        <button class="button cancel">Cancel</button>
+                        <button class="button is-primary">Save</button>
+                    </form>
+                </footer>
+            </div>
+        </div>
+        <div class="modal ${errors ? "is-active" : ""}" id="edit-col-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Collection<p>
+                </header>
+                <section class="modal-card-body">
+                    <form method="POST" action="/sites/${site.id}/">
                     <div class="field">
                         <label class="label">Date</label>
                         <div class="control">
