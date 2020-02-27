@@ -18,15 +18,12 @@ class SitesRepo extends Repo {
     } catch (err) {}
   }
   async updateCollection(siteId, collectionId, updatedCollection) {
-    console.log("new", updatedCollection);
     const site = await this.getOne(siteId);
-    console.log("found site", site);
     let targetCollection = site.history.collections.find(
       col => col.id === collectionId
     );
-    targetCollection = updatedCollection;
-    targetCollection.id = collectionId;
-    console.log("after collectionList", site.history);
+    Object.assign(targetCollection, updatedCollection);
+    console.log("after assign", site.history);
     await this.update(siteId, { history: site.history });
   }
 }

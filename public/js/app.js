@@ -94,19 +94,19 @@ if (editCollectionRowButtons) {
         );
         console.log(`td.${input.name.toLocaleLowerCase()}`);
         console.log(formField);
-        if (input.name === "collectionDate") {
-          // const dateValue = new Date(formField.innerHTML);
-          // console.log(
-          //   "date",
-          //   `${dateValue.getFullYear()}-${dateValue.getMonth() +
-          //     1}-${dateValue.getDate()}`
-          // );
-          // console.log(input);
-          // input.valueAsDate = dateValue;
+        if (input.name === "date") {
+          const dateValue = new Date(formField.dataset.value);
+          console.log(
+            "date",
+            `${dateValue.getFullYear()}-${dateValue.getMonth() +
+              1}-${dateValue.getDate()}`
+          );
+          console.log(input);
+          input.valueAsDate = dateValue;
           console.log(input);
         } else {
         }
-        input.setAttribute("value", formField.innerHTML);
+        input.setAttribute("value", formField.dataset.value);
       });
     });
   });

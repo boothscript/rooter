@@ -104,7 +104,7 @@ router.get("/sites/:id/detail", async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
   // add collection dates
   siteWithColDates = addCollectionDates([site]);
-  res.send(detailTemplate({ site: siteWithColDates[0] }));
+  res.send(detailTemplate({ site: siteWithColDates[0], errors: false }));
 });
 
 router.post("/sites/:id/delete", async (req, res) => {
@@ -121,21 +121,25 @@ router.post("/sites/:id/delete", async (req, res) => {
 
 router.post(
   "/sites/:id/collection",
-  [checkCollectionDate, checkComments, checkAmount],
+  [checkCollectionDate, checkComments],
   async (req, res) => {
     const { errors } = validationResult(req);
-    if (errors) {
+    console.log("errors at collection post", errors);
+    if (errors.length > 0) {
+      console.log("in error if");
       const site = await sitesRepo.getOne(req.params.id);
       // add collection dates
       siteWithColDates = addCollectionDates([site]);
+      // add modal id to errors
+      errors.addModal = true;
       return res.send(detailTemplate({ site: siteWithColDates[0], errors }));
     }
     const record = await sitesRepo.getOne(req.params.id);
     record.history.collections.push({
       id: sitesRepo.randomId(),
-      date: req.body.collectionDate,
+      date: req.body.date,
       amount: req.body.amount,
-      comment: req.body.collectionComment
+      comment: req.body.comment
     });
     await sitesRepo.update(req.params.id, { history: record.history });
     res.redirect(`/sites/${req.params.id}/detail`);
@@ -151,6 +155,15 @@ router.post(
   "/sites/:id/:collectionId/edit",
   [checkCollectionDate, checkComments, checkAmount],
   async (req, res) => {
+    const { errors } = validationResult(req);
+    if (errors.length > 0) {
+      const site = await sitesRepo.getOne(req.params.id);
+      // add collection dates
+      siteWithColDates = addCollectionDates([site]);
+      // add modal id to errors
+      errors.editModal = true;
+      return res.send(detailTemplate({ site: siteWithColDates[0], errors }));
+    }
     await sitesRepo.updateCollection(
       req.params.id,
       req.params.collectionId,

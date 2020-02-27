@@ -57,6 +57,7 @@ class Repo {
     const records = await this.getAll();
     const record = records.find(record => record.id === id);
     Object.assign(record, attrs);
+    console.log("record in update", record.history);
     await this.writeAll(records);
   }
 

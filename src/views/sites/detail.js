@@ -9,12 +9,14 @@ module.exports = ({ site, messages, errors }) => {
 
       return `
         <tr>
-            <td class="collectiondate">${date}</td>
-            <td class="collectioncomment">${row.comment}</td>
-            <td class="amount">${new Intl.NumberFormat("en-GB", {
-              style: "currency",
-              currency: "GBP"
-            }).format(row.amount)}</td>
+            <td class="date" data-value="${new Date(row.date)}">${date}</td>
+            <td class="comment" data-value="${row.comment}">${row.comment}</td>
+            <td class="amount" data-value="${
+              row.amount
+            }">${new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP"
+      }).format(row.amount)}</td>
             <td><button class="is-small modal-button" id="edit-col" data-id="${
               row.id
             }">Edit</button></td>
@@ -209,7 +211,9 @@ module.exports = ({ site, messages, errors }) => {
                 </footer>
             </div>
         </div>
-        <div class="modal ${errors ? "is-active" : ""}" id="add-col-modal">
+        <div class="modal ${
+          errors.addModal ? "is-active" : ""
+        }" id="add-col-modal">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -220,20 +224,20 @@ module.exports = ({ site, messages, errors }) => {
                     <div class="field">
                         <label class="label">Date</label>
                         <div class="control">
-                        <input class="input" type="date" name="collectionDate">
+                        <input class="input" type="date" name="date">
                         <p class="help is-danger">${getErrors(
                           errors,
-                          "collectionDate"
+                          "date"
                         )}</p>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Comment</label>
                         <div class="control">
-                        <input class="input" type="text" placeholder="Collection" name="collectionComment">
+                        <input class="input" type="text" placeholder="Collection" name="comment">
                         <p class="help is-danger">${getErrors(
                           errors,
-                          "collectionComment"
+                          "comment"
                         )}</p>
                         </div>
                     </div>
@@ -255,31 +259,33 @@ module.exports = ({ site, messages, errors }) => {
                 </footer>
             </div>
         </div>
-        <div class="modal ${errors ? "is-active" : ""}" id="edit-col-modal">
+        <div class="modal ${
+          errors.editModal ? "is-active" : ""
+        }" id="edit-col-modal">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Add Collection<p>
+                    <p class="modal-card-title">Edit Collection<p>
                 </header>
                 <section class="modal-card-body">
                     <form method="POST" action="/sites/${site.id}/">
                     <div class="field">
                         <label class="label">Date</label>
                         <div class="control">
-                        <input class="input" type="date" name="collectionDate">
+                        <input class="input" type="date" name="date">
                         <p class="help is-danger">${getErrors(
                           errors,
-                          "collectionDate"
+                          "date"
                         )}</p>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Comment</label>
                         <div class="control">
-                        <input class="input" type="text" placeholder="Collection" name="collectionComment">
+                        <input class="input" type="text" placeholder="Collection" name="comment">
                         <p class="help is-danger">${getErrors(
                           errors,
-                          "collectionComment"
+                          "comment"
                         )}</p>
                         </div>
                     </div>

@@ -82,10 +82,12 @@ module.exports = {
     .trim()
     .isLength({ max: 500 })
     .withMessage("Notes must be no longer than 500 characters."),
-  checkCollectionDate: check("collectionDate")
+  checkCollectionDate: check("date")
     .trim()
-    .toDate(),
-  checkComments: check("collectionComment")
+    .toDate()
+    .isISO8601()
+    .withMessage("Invalid Date"),
+  checkComments: check("comment")
     .trim()
     .isLength({ max: 100 })
     .withMessage("Comments must be no longer than 100 characters.")
