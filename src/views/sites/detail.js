@@ -211,6 +211,23 @@ module.exports = ({ site, messages, errors }) => {
                 </footer>
             </div>
         </div>
+        <div class="modal" id="col-del-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Are you sure?<p>
+                </header>
+                <section class="modal-card-body">
+                    <p class="has-text-danger">This action can not be undone.</p>
+                </section>
+                <footer class="modal-card-foot">
+                    <form method="POST" action="/sites/${site.id}/">
+                        <button class="button cancel">Cancel</button>
+                        <button class="button is-danger">Delete</button>
+                    </form>
+                </footer>
+            </div>
+        </div>
         <div class="modal ${
           errors.addModal ? "is-active" : ""
         }" id="add-col-modal">
@@ -300,10 +317,12 @@ module.exports = ({ site, messages, errors }) => {
                         </div>
                     </div>
                 </section>
-                <footer class="modal-card-foot">
+                <footer class="modal-card-foot is-flex">
                         <button class="button cancel">Cancel</button>
                         <button class="button is-primary">Save</button>
                     </form>
+                        <button class="button is-danger modal-button delete-col cancel" id="col-del">Delete</button>
+
                 </footer>
             </div>
         </div>

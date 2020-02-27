@@ -71,9 +71,11 @@ if (modals) {
     modal.querySelector(".modal-background").addEventListener("click", e => {
       modal.classList.remove("is-active");
     });
-    modal.querySelector(".cancel").addEventListener("click", e => {
-      e.preventDefault();
-      modal.classList.remove("is-active");
+    modal.querySelectorAll(".cancel").forEach(element => {
+      element.addEventListener("click", e => {
+        e.preventDefault();
+        modal.classList.remove("is-active");
+      });
     });
   });
 }
@@ -82,8 +84,12 @@ const editCollectionRowButtons = document.querySelectorAll("#edit-col");
 if (editCollectionRowButtons) {
   editCollectionRowButtons.forEach(button => {
     button.addEventListener("click", e => {
+      console.log("clicked");
       const modalForm = document.querySelector("#edit-col-modal form");
       modalForm.action = modalForm.action + `${e.target.dataset.id}/edit`;
+      document
+        .querySelector("#col-del")
+        .setAttribute("data-id", e.target.dataset.id);
 
       const inputs = modalForm.querySelectorAll("input");
       inputs.forEach(input => {
@@ -107,6 +113,12 @@ if (editCollectionRowButtons) {
         } else {
         }
         input.setAttribute("value", formField.dataset.value);
+      });
+      document.querySelector("#col-del").addEventListener("click", e => {
+        const delForm = document
+          .querySelector("#col-del-modal")
+          .querySelector("form");
+        delForm.action = delForm.action + `${e.target.dataset.id}/delete`;
       });
     });
   });

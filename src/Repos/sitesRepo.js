@@ -26,6 +26,13 @@ class SitesRepo extends Repo {
     console.log("after assign", site.history);
     await this.update(siteId, { history: site.history });
   }
+  async deleteCollection(siteId, collectionId) {
+    const site = await this.getOne(siteId);
+    const newCollection = site.history.collections.filter(
+      col => col.id !== collectionId
+    );
+    await this.update(siteId, { history: { collections: newCollection } });
+  }
 }
 
 module.exports = new SitesRepo("data/sites.json");

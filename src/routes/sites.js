@@ -172,6 +172,19 @@ router.post(
     res.redirect(`/sites/${req.params.id}/detail`);
   }
 );
+router.post("/sites/:id/:collectionId/delete", async (req, res) => {
+  await sitesRepo.deleteCollection(req.params.id, req.params.collectionId);
+
+  // send message
+  if (!req.session.messages) {
+    req.session.messages = [];
+  }
+  req.session.messages.push({
+    msg: `Collection ID: ${req.params.collectionId} has been deleted`,
+    style: "danger"
+  });
+  res.redirect(`/sites/${req.params.id}/detail`);
+});
 
 router.post(
   "/sites/:id/edit",
