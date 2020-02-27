@@ -121,7 +121,7 @@ router.post("/sites/:id/delete", async (req, res) => {
 
 router.post(
   "/sites/:id/collection",
-  [checkCollectionDate, checkComments],
+  [checkCollectionDate, checkComments, checkAmount],
   async (req, res) => {
     const { errors } = validationResult(req);
     console.log("errors at collection post", errors);
