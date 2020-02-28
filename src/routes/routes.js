@@ -19,7 +19,7 @@ router.post("/routes/add", async (req, res) => {
     start = {
       postcode: req.body.startPostcode,
       coords: await getCoords(req.body.startPostcode),
-      icon: "car-alt"
+      icon: req.body.method === "car" ? "car-alt" : "walking"
     };
   } catch (err) {
     console.log("start postcode issue", err);
@@ -39,7 +39,8 @@ router.post("/routes/add", async (req, res) => {
     sites: req.body.siteList.split(","),
     start,
     finish,
-    date: new Date()
+    date: new Date(),
+    method: req.body.method
   });
   await routesRepo.getTrip(route.id);
   res.redirect("/routes");

@@ -29,8 +29,14 @@ module.exports = (content, messages = []) => {
                             <a class="navbar-item" href="/">
                                 <b>ROOTER</b>
                             </a>
+                        
+                            <a role="button" class="navbar-burger burger" data-target="mainNavbar">
+                                <span aria-hidden="true"></span>
+                                <span aria-hidden="true"></span>
+                                <span aria-hidden="true"></span>
+                            </a>
                         </div>
-                        <div class="navbar-menu">
+                        <div class="navbar-menu" id="mainNavbar">
                             <div class="navbar-end">
                                 <a href="/" class="navbar-item">Sites</a>
                                 <a href="/routes" class="navbar-item">Routes</a>

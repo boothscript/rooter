@@ -171,6 +171,19 @@ module.exports = ({ sitesData, totalNumOfSites, messages }) => {
                                             <p class="help is-danger"></p>
                                         </div>
                                     </div>
+                                    <div class="field">
+                                        <label class="label">Routing Type</label>
+                                        <div class="control">
+                                            <label class="radio">
+                                                <input type="radio" name="method" value="car">
+                                                Car
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="method" value="foot">
+                                                Foot
+                                            </label>
+                                        </div>
+                                    </div>
                             </section>
                             <footer class="modal-card-foot">
                                     <button class="button cancel">Cancel</button>

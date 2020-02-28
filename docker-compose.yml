@@ -13,31 +13,34 @@ services:
       - ./:/app # <host-directory>:<container-directory> this says map the current directory from your system to the /app directory in the docker container
       - ./data:/app/data
     command: "npx pm2 start ecosystem.config.js --no-daemon" # The command docker will execute when starting the container, this command is not allowed to exit, if it does your container will stop
-  osrm-car:
-    container_name: osrm
+  osrmapp1:
+    container_name: osrmcar
     image: osrm/osrm-backend
     networks:
       - app
     volumes:
       - ../osrm/:/data
+    # ports:
+    #   - "5000:5000"
     command: "osrm-routed --algorithm mld /data/england-latest.osrm  --max-trip-size 300"
-  app:
-    container_name: osrm-foot
+  osrmapp2:
+    container_name: osrmfoot
     image: osrm/osrm-backend
     networks:
       - app
     volumes:
       - ../osrm-foot/:/data
+    # ports:
+    #   - "5000:5000"
     command: "osrm-routed --algorithm mld /data/england-latest.osrm  --max-trip-size 300"
-  proxy:
-    container_name: nginx
-    build: ./nginx/
-    networks:
-      - app
-    ports:
-      - "8080:80"
-
-    # command: /bin/bash -c "envsubst < /etc/nginx/conf.d/nginx.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+  # proxy:
+  #   container_name: nginx
+  #   build: ./nginx/
+  #   networks:
+  #     - app
+  #   ports:
+  #     - "8080:80"
+  # command: /bin/bash -c "envsubst < /etc/nginx/conf.d/nginx.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
 networks:
   app:

@@ -6,6 +6,7 @@ module.exports = ({ routes, messages = [] }) => {
     .map(route => {
       return `
             <tr>
+                <td><i class="fas fa-${route.start.icon}"></i></td>
                 <td>${route.name}</td>
                 <td>${route.start.postcode.toUpperCase()}</td>
                 <td>${route.finish.postcode.toUpperCase()}</td>
@@ -24,6 +25,7 @@ module.exports = ({ routes, messages = [] }) => {
         <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Start</th>
                     <th>Finish</th>
