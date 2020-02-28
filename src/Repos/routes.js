@@ -35,7 +35,7 @@ class routesRepo extends Repo {
 
     // call trip api
     const tripData = await fetch(
-      `http://osrm:5000/trip/v1/driving/${startCoords};${siteCoordsList.join(
+      `http://nginx:80/trip/v1/driving/${startCoords};${siteCoordsList.join(
         ";"
       )};${finishCoords}?source=first&destination=last&steps=true&geometries=geojson&annotations=true`
     )
