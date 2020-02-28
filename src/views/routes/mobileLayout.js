@@ -9,15 +9,27 @@ module.exports = content => {
             </head>
             <body>
   
-                <header>
-                    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-                        <div class="navbar-brand ">
-                            <a class="navbar-item" href="/">
-                                <b>ROOTER</b>
-                            </a>
-                        </div>
-                    </nav>
-                </header>
+            <header>
+            <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand ">
+                    <a class="navbar-item" href="/">
+                        <b>ROOTER</b>
+                    </a>
+                
+                    <a role="button" class="navbar-burger burger" data-target="mainNavbar">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu" id="mainNavbar">
+                    <div class="navbar-end">
+                        <a href="/" class="navbar-item">Sites</a>
+                        <a href="/routes" class="navbar-item">Routes</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
                 <main class="section has-background-light">
                     ${content}
                 </main>
