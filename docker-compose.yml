@@ -8,7 +8,7 @@ services:
     networks:
       - app # Networking can get complex, but for all intents and purposes just know that containers on the same network can speak to each other
     ports:
-      - "3000:3000" # <host-port>:<container-port> to listen to, so anything running on port 3000 of the container will map to port 3000 on our localhost
+      - "80:3000" # <host-port>:<container-port> to listen to, so anything running on port 3000 of the container will map to port 3000 on our localhost
     volumes:
       - ./:/app # <host-directory>:<container-directory> this says map the current directory from your system to the /app directory in the docker container
       - ./data:/app/data
@@ -19,28 +19,27 @@ services:
     networks:
       - app
     volumes:
-      - ../osrm/:/data
+      - ./osrmcar/:/data
     # ports:
     #   - "5000:5000"
-    command: "osrm-routed --algorithm mld /data/england-latest.osrm  --max-trip-size 300"
+    command: "osrm-routed --algorithm mld /data/sw-merged.osrm  --max-trip-size 300"
   osrmapp2:
     container_name: osrmfoot
     image: osrm/osrm-backend
     networks:
       - app
     volumes:
-      - ../osrm-foot/:/data
+      - ./osrmfoot/:/data
     # ports:
     #   - "5000:5000"
-    command: "osrm-routed --algorithm mld /data/england-latest.osrm  --max-trip-size 300"
+    command: "osrm-routed --algorithm mld /data/sw-merged.osrm  --max-trip-size 300"
   # proxy:
   #   container_name: nginx
   #   build: ./nginx/
   #   networks:
   #     - app
   #   ports:
-  #     - "8080:80"
-  # command: /bin/bash -c "envsubst < /etc/nginx/conf.d/nginx.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+  #     - "80:80"
 
 networks:
   app:

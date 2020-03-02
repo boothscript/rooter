@@ -5,7 +5,7 @@ const Repo = require("./repo");
 const scrypt = utils.promisify(cyrpto.scrypt);
 
 class UserRepo extends Repo {
-  create = async attrs => {
+  async create(attrs) {
     const records = await this.getAll();
     attrs.id = this.randomId();
     const salt = cyrpto.randomBytes(8).toString("hex");
@@ -16,9 +16,9 @@ class UserRepo extends Repo {
     records.push(record);
     await this.writeAll(records);
     return record;
-  };
+  }
 
-  checkPassword = async attrs => {
+  async checkPassword(attrs) {
     const user = await this.getOneBy({ email: attrs.email });
     if (user) {
       const [hash, salt] = user.password.split(".");
@@ -29,7 +29,7 @@ class UserRepo extends Repo {
         throw new Error("Incorrect Password");
       }
     }
-  };
+  }
 }
 
 module.exports = new UserRepo("data/users.json");
