@@ -1,4 +1,5 @@
 const { body, check, validationResult } = require("express-validator");
+const userRepo = require("../../Repos/users");
 
 module.exports = {
   checkBoxNumber: body("boxNumber")
@@ -90,5 +91,28 @@ module.exports = {
   checkComments: check("comment")
     .trim()
     .isLength({ max: 100 })
-    .withMessage("Comments must be no longer than 100 characters.")
+    .withMessage("Comments must be no longer than 100 characters."),
+  emailIsUser: body("email")
+    .trim()
+    .isEmail()
+    .custom(async email => {
+      const user = await userRepo.getOneBy({ email });
+      if (user) {
+        return true;
+      } else {
+        throw new Error("Email not recognised");
+      }
+    }),
+  passwordCorrect: body("password")
+    .trim()
+    .custom(async (password, { req }) => {
+      return userRepo.checkPassword({ password, email: req.body.email });
+    }),
+  adminAuth: (req, res, next) => {
+    if (req.session.userId) {
+      next();
+    } else {
+      return res.redirect("/login");
+    }
+  }
 };

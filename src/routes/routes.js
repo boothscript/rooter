@@ -10,9 +10,10 @@ const mobileTemplate = require("../views/routes/mobile");
 const { extractCoords } = require("./helperFunctions/routeFunctions");
 const { getCoords } = require("./helperFunctions/siteDataProcessor");
 const { getMapView } = require("../views/helpers");
+const { adminAuth } = require("./helperFunctions/validatiors");
 const router = express.Router();
 
-router.post("/routes/add", async (req, res) => {
+router.post("/routes/add", [adminAuth], async (req, res) => {
   let start = {};
   let finish = {};
   try {
@@ -47,12 +48,12 @@ router.post("/routes/add", async (req, res) => {
   console.log(await routesRepo.getOne(route.id));
 });
 
-router.get("/routes", async (req, res) => {
+router.get("/routes", [adminAuth], async (req, res) => {
   const routes = await routesRepo.getAll();
   res.send(indexTemplate({ routes }));
 });
 
-router.get("/routes/:id/detail", async (req, res) => {
+router.get("/routes/:id/detail", [adminAuth], async (req, res) => {
   const route = await routesRepo.getOne(req.params.id);
 
   const mapView = await getMapView(route);
@@ -60,7 +61,7 @@ router.get("/routes/:id/detail", async (req, res) => {
   res.send(detailTemplate({ route, mapView }));
 });
 
-router.get("/routes/:id/mobile", async (req, res) => {
+router.get("/routes/:id/mobile", [adminAuth], async (req, res) => {
   const route = await routesRepo.getOne(req.params.id);
   res.send(mobileTemplate({ route }));
 });
@@ -69,7 +70,7 @@ router.get("/map", (req, res) => {
   res.send(detailTemplate({}));
 });
 
-router.post("/routes/:id/toggleCheck", async (req, res) => {
+router.post("/routes/:id/toggleCheck", [adminAuth], async (req, res) => {
   const route = await routesRepo.getOne(req.params.id);
   const targetWaypoint = route.waypoints.find(
     point => point.waypoint_index == req.query.waypoint

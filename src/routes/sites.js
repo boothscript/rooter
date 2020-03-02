@@ -22,12 +22,13 @@ const {
   checkAmount,
   checkNotes,
   checkCollectionDate,
-  checkComments
+  checkComments,
+  adminAuth
 } = require("./helperFunctions/validatiors");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", [adminAuth], async (req, res) => {
   console.log(req.query);
   const sitesData = addCollectionDates(await sitesRepo.getAll());
   const totalNumOfSites = sitesData.length;
@@ -42,7 +43,7 @@ router.get("/", async (req, res) => {
   );
 });
 
-router.get("/sites/add", (req, res) => {
+router.get("/sites/add", [adminAuth], (req, res) => {
   res.send(addTemplate({}));
 });
 
@@ -60,7 +61,8 @@ router.post(
     checkCollectionFequency,
     checkAmount,
     checkNotes,
-    checkCollectionDate
+    checkCollectionDate,
+    adminAuth
   ],
   async (req, res) => {
     const { errors } = validationResult(req);
@@ -100,14 +102,14 @@ router.post(
   }
 );
 
-router.get("/sites/:id/detail", async (req, res) => {
+router.get("/sites/:id/detail", [adminAuth], async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
   // add collection dates
   siteWithColDates = addCollectionDates([site]);
   res.send(detailTemplate({ site: siteWithColDates[0], errors: false }));
 });
 
-router.post("/sites/:id/delete", async (req, res) => {
+router.post("/sites/:id/delete", [adminAuth], async (req, res) => {
   // await sitesRepo.delete(req.params.id);
   if (!req.session.messages) {
     req.session.messages = [];
@@ -121,7 +123,7 @@ router.post("/sites/:id/delete", async (req, res) => {
 
 router.post(
   "/sites/:id/collection",
-  [checkCollectionDate, checkComments, checkAmount],
+  [checkCollectionDate, checkComments, checkAmount, adminAuth],
   async (req, res) => {
     const { errors } = validationResult(req);
     console.log("errors at collection post", errors);
@@ -146,14 +148,14 @@ router.post(
   }
 );
 
-router.get("/sites/:id/edit", async (req, res) => {
+router.get("/sites/:id/edit", [adminAuth], async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
   res.send(editTemplate({ site }));
 });
 
 router.post(
   "/sites/:id/:collectionId/edit",
-  [checkCollectionDate, checkComments, checkAmount],
+  [checkCollectionDate, checkComments, checkAmount, adminAuth],
   async (req, res) => {
     const { errors } = validationResult(req);
     if (errors.length > 0) {
@@ -172,19 +174,23 @@ router.post(
     res.redirect(`/sites/${req.params.id}/detail`);
   }
 );
-router.post("/sites/:id/:collectionId/delete", async (req, res) => {
-  await sitesRepo.deleteCollection(req.params.id, req.params.collectionId);
+router.post(
+  "/sites/:id/:collectionId/delete",
+  [adminAuth],
+  async (req, res) => {
+    await sitesRepo.deleteCollection(req.params.id, req.params.collectionId);
 
-  // send message
-  if (!req.session.messages) {
-    req.session.messages = [];
+    // send message
+    if (!req.session.messages) {
+      req.session.messages = [];
+    }
+    req.session.messages.push({
+      msg: `Collection ID: ${req.params.collectionId} has been deleted`,
+      style: "danger"
+    });
+    res.redirect(`/sites/${req.params.id}/detail`);
   }
-  req.session.messages.push({
-    msg: `Collection ID: ${req.params.collectionId} has been deleted`,
-    style: "danger"
-  });
-  res.redirect(`/sites/${req.params.id}/detail`);
-});
+);
 
 router.post(
   "/sites/:id/edit",
@@ -197,7 +203,8 @@ router.post(
     checkTown,
     checkContactName,
     checkContactNumber,
-    checkNotes
+    checkNotes,
+    adminAuth
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -225,7 +232,7 @@ router.post(
   }
 );
 
-router.post("/sites/:id/addcomment", async (req, res) => {
+router.post("/sites/:id/addcomment", [adminAuth], async (req, res) => {
   const site = await sitesRepo.getOne(req.params.id);
   console.log(site);
   const collection = {
