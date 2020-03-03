@@ -67,7 +67,7 @@ module.exports = {
 
       return true;
     }),
-  checkCollectionFequency: check("collectionFrequency")
+  checkCollectionFrequency: check("collectionFrequency")
     .not()
     .isEmpty()
     .withMessage("Must be a number bewtween 1 and 12 (months)")

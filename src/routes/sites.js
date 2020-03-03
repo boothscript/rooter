@@ -58,7 +58,7 @@ router.post(
     checkTown,
     checkContactName,
     checkContactNumber,
-    checkCollectionFequency,
+    checkCollectionFrequency,
     checkAmount,
     checkNotes,
     checkCollectionDate,
