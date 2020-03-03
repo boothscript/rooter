@@ -203,6 +203,7 @@ router.post(
     checkTown,
     checkContactName,
     checkContactNumber,
+    checkCollectionFrequency,
     checkNotes,
     adminAuth
   ],
@@ -221,6 +222,7 @@ router.post(
           town: req.body.town,
           postcode: req.body.postCode
         },
+        collectionFrequency: req.body.collectionFrequency,
         contact: {
           name: req.body.contactName,
           number: req.body.contactNumber
