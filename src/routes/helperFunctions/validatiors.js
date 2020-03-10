@@ -8,7 +8,7 @@ module.exports = {
     .withMessage("Box Number must be included.")
     .trim()
     .custom(value => {
-      const boxNumRegex = /[A-Z][A-Z]\d\d\d/g;
+      const boxNumRegex = /[A-Z][A-Z]?\d\d\d/g;
       if (!boxNumRegex.test(value)) {
         throw new Error("Box Number does not match FR000 format.");
       }
