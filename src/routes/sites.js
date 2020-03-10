@@ -59,9 +59,7 @@ router.post(
     checkContactName,
     checkContactNumber,
     checkCollectionFrequency,
-    checkAmount,
     checkNotes,
-    checkCollectionDate,
     adminAuth
   ],
   async (req, res) => {
@@ -69,7 +67,7 @@ router.post(
     if (errors.length > 0) {
       res.send(addTemplate({ errors }));
     } else {
-      await sitesRepo.create({
+      const site = await sitesRepo.create({
         boxNumber: req.body.boxNumber,
         route: "",
         name: req.body.siteName,
@@ -84,19 +82,21 @@ router.post(
           number: req.body.contactNumber
         },
         collectionFrequency: req.body.collectionFrequency,
-        initalYearTotal: req.body.previousCollectionAmount,
+        initalYearTotal: 0,
         notes: req.body.notes,
         history: {
           collections: [
             {
               id: sitesRepo.randomId(),
-              date: req.body.collectionDate,
-              amount: req.body.previousCollectionAmount,
+              date: new Date(),
+              amount: 0,
               comment: "added to system"
             }
           ]
         }
       });
+
+      await sitesRepo.getCoords(site.id, site.address.postcode);
       return res.redirect("/");
     }
   }

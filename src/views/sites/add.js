@@ -76,24 +76,6 @@ module.exports = ({ errors }) => {
               "collectionFrequency"
             )}</p>
           </div>
-          <div class="field">
-            <label class="label">Previous Collection Amount</label>
-            <div class="control">
-              <input class="input" placeholder="£87.09" name="amount"/>
-            </div>
-            <p class="help is-danger">${getErrors(
-              errors,
-              "previousCollectionAmount"
-            )}</p>
-          </div>
-          <div class="field">
-            <label class="label">Last Collection Date</label>
-            <div class="control">
-              <input class="input" type="date" placeholder="" name="collectionDate"/>
-            </div>
-            <p class="help is-danger">${getErrors(errors, "collectionDate")}</p>
-          </div>
-          
         </div>
       </div>
       <div class="field">

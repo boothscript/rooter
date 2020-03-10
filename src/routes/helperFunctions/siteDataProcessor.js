@@ -21,6 +21,12 @@ const monthToString = n => {
 module.exports = {
   addCollectionDates: sitesData => {
     return sitesData.map(site => {
+      // sort
+      site.history.collections.sort((a, b) => {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a - b;
+      });
       // add site.lastCollectionDate
       const siteCollections = site.history.collections.slice(-1);
       site.lastCollectionDate =
