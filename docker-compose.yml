@@ -8,7 +8,7 @@ services:
     networks:
       - app # Networking can get complex, but for all intents and purposes just know that containers on the same network can speak to each other
     ports:
-      - "80:3000" # <host-port>:<container-port> to listen to, so anything running on port 3000 of the container will map to port 3000 on our localhost
+      - "3003:3000" # <host-port>:<container-port> to listen to, so anything running on port 3000 of the container will map to port 3000 on our localhost
     volumes:
       - ./:/app # <host-directory>:<container-directory> this says map the current directory from your system to the /app directory in the docker container
       - ./data:/app/data
@@ -39,7 +39,7 @@ services:
   #   networks:
   #     - app
   #   ports:
-  #     - "8002:80"
+  #     - "80:8002"
 
 networks:
   app:
